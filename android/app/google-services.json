@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "185898754927",
+    "firebase_url": "https://gladness-f23f5.firebaseio.com",
+    "project_id": "gladness-f23f5",
+    "storage_bucket": "gladness-f23f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185898754927:android:c3481c32daeacef37bbe9a",
+        "android_client_info": {
+          "package_name": "com.gladness.client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185898754927-fpu8l62mkdjbtinbu18597bgje23q32u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gladness.client",
+            "certificate_hash": "897f2b8b5c09255fde0fa2bcf5065282da86b4d4"
+          }
+        },
+        {
+          "client_id": "185898754927-i212ph17jnmlfev3bldq3ngtavr4uf6m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS5TBX-72XEB9CL8Dy4jzoC8kTTneYcdU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185898754927-i212ph17jnmlfev3bldq3ngtavr4uf6m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "185898754927-ne21hhfchhu21rd1kuaho93h6gl9n8h3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gladnessClinet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

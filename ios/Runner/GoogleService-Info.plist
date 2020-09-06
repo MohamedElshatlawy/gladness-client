@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>185898754927-ne21hhfchhu21rd1kuaho93h6gl9n8h3.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.185898754927-ne21hhfchhu21rd1kuaho93h6gl9n8h3</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAmSCKnZbrUK6ikJQ6c9eSH3WdZPkekvpg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>185898754927</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.gladnessClinet</string>
+	<key>PROJECT_ID</key>
+	<string>gladness-f23f5</string>
+	<key>STORAGE_BUCKET</key>
+	<string>gladness-f23f5.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:185898754927:ios:9e01ef2c5c19131d7bbe9a</string>
+	<key>DATABASE_URL</key>
+	<string>https://gladness-f23f5.firebaseio.com</string>
+</dict>
+</plist>
