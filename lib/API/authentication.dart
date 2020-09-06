@@ -59,16 +59,10 @@ Future<UserModel> getUserInfo(User user, var ctx) async {
       userModel =
           UserModel.fromJson(value.data(), value.id, user.phoneNumber);
     }
-<<<<<<< HEAD
+
   }).catchError((e){
     return null;
   });
-=======
-  }).catch((e){
-    return null;
-  }
-    );
->>>>>>> 1aa557570c8a20ac60d898851615b93dd581ce5a
 
   return userModel;
 }
