@@ -108,7 +108,7 @@ class _MoreState extends State<More> {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Expanded(
+                          Expanded( 
                             child: Text('العربية'),
                           ),
                           Expanded(
