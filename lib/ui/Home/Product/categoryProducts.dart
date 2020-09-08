@@ -145,34 +145,34 @@ class CategoryProducts extends StatelessWidget {
                                   Expanded(
                                     child: CustomButton(
                                       backgroundColor: MyColor.customColor,
-                                      btnPressed: () { 
+                                      btnPressed: () {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (ctx) => Reservation(
-                                                    vendorModel)));
+                                                builder: (ctx) => 
+                                                    Reservation(vendorModel)));
                                       },
                                       textColor: Colors.white,
-                                      txt: 'احجز الأن',
+                                      txt: 'حجز الخدمة',
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 15,
-                                  ),
-                                  Expanded(
-                                    child: CustomButton(
-                                      backgroundColor: MyColor.customColor,
-                                      btnPressed: () { 
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (ctx) => PriceListView(
-                                                    vendorModel)));
-                                      },
-                                      textColor: Colors.white,
-                                      txt: 'قائمة الأسعار',
-                                    ),
-                                  ),
+                                  // SizedBox(
+                                  //   width: 15,
+                                  // ),
+                                  // Expanded(
+                                  //   child: CustomButton(
+                                  //     backgroundColor: MyColor.customColor,
+                                  //     btnPressed: () {
+                                  //       Navigator.push(
+                                  //           context,
+                                  //           MaterialPageRoute(
+                                  //               builder: (ctx) => PriceListView(
+                                  //                   vendorModel)));
+                                  //     },
+                                  //     textColor: Colors.white,
+                                  //     txt: 'قائمة الأسعار',
+                                  //   ),
+                                  // ),
                                 ],
                               )
                             ],

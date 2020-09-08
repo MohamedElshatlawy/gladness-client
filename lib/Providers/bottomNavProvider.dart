@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class BottomNavProvider extends ChangeNotifier {
-  int selectedIndex = 2;
+  int selectedIndex = 3;
 
   onTapClick(int index) {
     selectedIndex = index;
@@ -11,13 +11,15 @@ class BottomNavProvider extends ChangeNotifier {
   String getTabName() {
     switch (selectedIndex) {
       case 0:
-        return 'الرئيسية';
+        return 'المزيد';
       case 1:
         return 'الحجوزات';
       // case 2:
       //   return 'المشتريات';
       case 2:
-        return 'التصنيفات';
+        return 'الأقسام';
+      case 3:
+        return 'الرئيسية';
     }
     return '';
   }

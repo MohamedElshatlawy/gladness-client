@@ -13,7 +13,7 @@ import 'checkout_reservation.dart';
 
 class Reservation extends StatefulWidget {
   VendorModel vendorModel;
-  
+
   Reservation(this.vendorModel);
   @override
   _PriceListViewState createState() => _PriceListViewState();
@@ -21,8 +21,8 @@ class Reservation extends StatefulWidget {
 
 class _PriceListViewState extends State<Reservation> {
   ProductModel productModel;
-  Map<int,bool> selectedPriceList = {};
-  var resev_key=GlobalKey<ScaffoldState>();
+  Map<int, bool> selectedPriceList = {};
+  var resev_key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +39,7 @@ class _PriceListViewState extends State<Reservation> {
             }),
         backgroundColor: MyColor.whiteColor,
         title: Text(
-          "احجز الأن",
+          "قائمة الأسعار",
           style: TextStyle(color: MyColor.customColor),
         ),
         centerTitle: true,
@@ -75,52 +75,87 @@ class _PriceListViewState extends State<Reservation> {
                         ? Center(
                             child: Text('لا يوجد قائمة اسعار'),
                           )
-                        : Column(
-                            children: <Widget>[
-                              Expanded(
-                                child: ListView.builder(
-                                    itemCount: snapSHot.data.docs[0]
-                                        .data()['priceList']
-                                        .length,
-                                    itemBuilder: (ctx, index) {
-                                      productModel = ProductModel.fromJson(
-                                          id: snapSHot.data.docs[0].id,
-                                          json: snapSHot.data.docs[0].data());
-                                      selectedPriceList[index]=false;
- 
-                                      return ReservationListItem(
-                                          productModel, selectedPriceList, index);
-                                    }),
+                        : Card(
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'الأسم',
+                                        style: TextStyle(
+                                            color: MyColor.customColor),
+                                      ),
+                                      Text(
+                                        'السعر',
+                                        style: TextStyle(
+                                            color: MyColor.customColor),
+                                      )
+                                    ],
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.symmetric(vertical: 10),
+                                    height: 1,
+                                    color: MyColor.customColor,
+                                  ),
+                                  Expanded(
+                                    child: ListView.builder(
+                                        itemCount: snapSHot.data.docs[0]
+                                            .data()['priceList']
+                                            .length,
+                                        itemBuilder: (ctx, index) {
+                                          productModel = ProductModel.fromJson(
+                                              id: snapSHot.data.docs[0].id,
+                                              json:
+                                                  snapSHot.data.docs[0].data());
+                                          selectedPriceList[index] = false;
+
+                                          return ReservationListItem(
+                                              productModel,
+                                              selectedPriceList,
+                                              index);
+                                        }),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    width: 100,
+                                    child: CustomButton(
+                                      
+                                      backgroundColor: MyColor.custGrey2,
+                                      textColor: MyColor.customColor,
+                                      txt: 'اختيار',
+                                      btnPressed: () {
+                                        int c = 0;
+                                        selectedPriceList.forEach((key, value) {
+                                          if (value == true) c++;
+                                        });
+                                        if (c != 0) {
+                                          print(selectedPriceList);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (ctx) =>
+                                                      CheckoutReservation(
+                                                          selectedPriceList,
+                                                          productModel,
+                                                          widget.vendorModel)));
+                                        } else {
+                                          showSnackbarError(
+                                              msg:
+                                                  'قم بأختيار منتج من قائمة الأسعار',
+                                              scaffoldKey: resev_key);
+                                        }
+                                      },
+                                    ),
+                                  )
+                                ],
                               ),
-                              SizedBox(height: 10,),
-                              CustomButton(
-                                backgroundColor: MyColor.customColor,
-                                textColor: Colors.white,
-                                txt: 'تنفيذ الطلب',
-                                btnPressed: (){
-                                  int c=0;
-                                  selectedPriceList.forEach((key, value) { 
-                                    if(value==true)
-                                    c++;
-                                  });
-                                  if(c!=0){
-                                    print(selectedPriceList);
-                                           Navigator.push(context, MaterialPageRoute(builder: (ctx)=>CheckoutReservation(
-                                             selectedPriceList,
-                                             productModel,
-                                             widget.vendorModel
-                                            
-                                           )));
-                            
-                                  }else{
-                                    showSnackbarError(
-                                      msg: 'قم بأختيار منتج من قائمة الأسعار',
-                                      scaffoldKey: resev_key
-                                    );
-                                  }
-                               },
-                              )
-                            ],
+                            ),
                           );
                 }
                 return Container();
@@ -129,5 +164,4 @@ class _PriceListViewState extends State<Reservation> {
       ),
     );
   }
-
 }

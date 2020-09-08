@@ -14,6 +14,7 @@ import 'package:qutub_clinet/ui/Home/welcome.dart';
 
 import '../colors.dart';
 import 'homeTab.dart';
+import 'more.dart';
 import 'orderTab.dart';
 
 class MainHome extends StatefulWidget {
@@ -26,59 +27,68 @@ class _MainHomeState extends State<MainHome> {
   void initState() {
     // TODO: implement initState
     super.initState();
-     getFcmToken();
+    getFcmToken();
   }
-  var homeKey=GlobalKey<ScaffoldState>();
+
+  var homeKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     var bottomNavProvider = Provider.of<BottomNavProvider>(context);
     var userProvider = Provider.of<UserProvider>(context);
     var cartCountProvider = Provider.of<CartCounterProvider>(context);
-   
+
     return Scaffold(
-      key: homeKey,
-      backgroundColor: MyColor.customGreyColor,
-        appBar: (bottomNavProvider.selectedIndex==2)?null:AppBar(
-          backgroundColor: MyColor.whiteColor,
-          elevation: 5,
-          title: Text(bottomNavProvider.getTabName(),style: TextStyle(
-            color: MyColor.customColor
-          ),),
-          centerTitle: true,
-          actions: [
-            IconButton(icon: Icon(Icons.menu,color: MyColor.customColor,), onPressed: (){
-              homeKey.currentState.openEndDrawer();
-            })
-          ],
-          leading: InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (ctx) => Profile(
-                            userModel: userProvider.userModel,
-                          )));
-            },
-            child: Container(
-                margin: EdgeInsets.only(left: 10, top: 5, bottom: 5),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: MyColor.customColor)),
-                child: ClipOval(
-                    child: (userProvider.userModel==null||userProvider.userModel.profileImg==null)
-                        ? Image.asset(
-                            'assets/profile.png',
-                            color: MyColor.customColor,
-                            scale: 4,
-                          )
-                        : Image.network(
-                            userProvider.userModel.profileImg,
-                            fit: BoxFit.cover,
-                          ))),
-          ),
-        ),
-        
-        endDrawer: MyDrawer(), 
+        key: homeKey,
+        backgroundColor: MyColor.customGreyColor,
+        appBar: (bottomNavProvider.selectedIndex == 3)
+            ? null
+            : AppBar(
+                backgroundColor: MyColor.whiteColor,
+                elevation: 5,
+                title: Text(
+                  bottomNavProvider.getTabName(),
+                  style: TextStyle(color: MyColor.customColor),
+                ),
+                centerTitle: true,
+                // actions: [
+                //   IconButton(
+                //       icon: Icon(
+                //         Icons.menu,
+                //         color: MyColor.customColor,
+                //       ),
+                //       onPressed: () {
+                //         //   homeKey.currentState.openEndDrawer();
+                //       })
+                // ],
+                // leading: InkWell(
+                //   onTap: () {
+                //     Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //             builder: (ctx) => Profile(
+                //                   userModel: userProvider.userModel,
+                //                 )));
+                //   },
+                //   child: Container(
+                //       margin: EdgeInsets.only(left: 10, top: 5, bottom: 5),
+                //       decoration: BoxDecoration(
+                //           shape: BoxShape.circle,
+                //           border: Border.all(color: MyColor.customColor)),
+                //       child: ClipOval(
+                //           child: (userProvider.userModel == null ||
+                //                   userProvider.userModel.profileImg == null)
+                //               ? Image.asset(
+                //                   'assets/profile.png',
+                //                   color: MyColor.customColor,
+                //                   scale: 4,
+                //                 )
+                //               : Image.network(
+                //                   userProvider.userModel.profileImg,
+                //                   fit: BoxFit.cover,
+                //                 ))),
+                // ),
+              ),
+        endDrawer: MyDrawer(),
         bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             elevation: 10,
@@ -90,6 +100,8 @@ class _MainHomeState extends State<MainHome> {
             },
             selectedItemColor: MyColor.customColor,
             items: [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.more_horiz), title: Text('المزيد')),
               BottomNavigationBarItem(
                   icon: Icon(Icons.date_range), title: Text('الحجوزات')),
               // BottomNavigationBarItem(
@@ -126,32 +138,33 @@ class _MainHomeState extends State<MainHome> {
               //       ),
               //     ),
               //     title: Text('المشتريات')),
-          
-          
+
               BottomNavigationBarItem(
                   icon: Icon(Icons.menu),
                   title: Text(
-                    'التصنيفات',
+                    'الأقسام',
                   )),
-                    BottomNavigationBarItem(
+              BottomNavigationBarItem(
                   icon: Icon(Icons.home), title: Text('الرئيسية')),
             ]),
         body: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Container(
-              margin:(bottomNavProvider.selectedIndex==2)?null: EdgeInsets.all(10), 
-              child: bottomNavProvider.selectedIndex == 2
-
-                  ?
-                  Welcome(
-                    homeKey: homeKey,
-                  ):(bottomNavProvider.selectedIndex == 1)?
-                   HomeTab()  
-                  // : bottomNavProvider.selectedIndex == 1
-                  //     ? FavouriteTab()
-                  //     : bottomNavProvider.selectedIndex == 2
-                  //         ? CartTab()
-                          : OrderTab()),
-        ));
+            textDirection: TextDirection.rtl,
+            child: Container(
+                margin: (bottomNavProvider.selectedIndex == 3)
+                    ? null
+                    : EdgeInsets.all(10),
+                child: bottomNavProvider.selectedIndex == 3
+                    ? Welcome(
+                        homeKey: homeKey,
+                      )
+                    : (bottomNavProvider.selectedIndex == 2)
+                        ? HomeTab()
+                        // : bottomNavProvider.selectedIndex == 1
+                        //     ? FavouriteTab()
+                        //     : bottomNavProvider.selectedIndex == 2
+                        //         ? CartTab()
+                        : (bottomNavProvider.selectedIndex == 1)
+                            ? OrderTab()
+                            : More())));
   }
 }
