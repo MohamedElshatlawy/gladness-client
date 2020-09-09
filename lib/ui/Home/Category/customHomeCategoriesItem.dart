@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:qutub_clinet/models/categoryModel.dart';
 import 'package:qutub_clinet/ui/Home/Product/categoryProducts.dart';
@@ -7,7 +8,7 @@ import 'package:qutub_clinet/ui/colors.dart';
 class CategoryItem extends StatelessWidget {
   CategoryModel categoryModel;
   int index;
-  CategoryItem({this.categoryModel,this.index});
+  CategoryItem({this.categoryModel, this.index});
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -17,7 +18,7 @@ class CategoryItem extends StatelessWidget {
           //     MaterialPageRoute(
           //         builder: (ctx) => CategoryProducts(
           //               categoryModel: categoryModel,
-          //             ))); 
+          //             )));
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -31,35 +32,49 @@ class CategoryItem extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(30),
           ),
-          height: MediaQuery.of(context).size.height*.2,
+          height: MediaQuery.of(context).size.height * .2,
           child: Row(
-            textDirection: (index%2==0)?TextDirection.rtl:TextDirection.ltr,
+            textDirection:
+                (index % 2 == 0) ? TextDirection.rtl : TextDirection.ltr,
             children: [
               Expanded(
                   child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: Image.network(
-                  categoryModel.imgPath,
-                  fit: BoxFit.cover,
-                  height: double.infinity,
-                ),
-              )),
+                      borderRadius: BorderRadius.circular(30),
+                      child: CachedNetworkImage(
+                        imageUrl: categoryModel.imgPath,
+                        fit: BoxFit.cover,
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                               ),
+                          ),
+                        ),
+                        placeholder: (context, url) =>
+                            Container(
+                              width: 100,
+                              height: 100,
+                              child: Center(child: CircularProgressIndicator())),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      )
+                      
+                      )),
               Expanded(
                   child: Center(
                 child: Text(
                   'اسم الفئة: ' + categoryModel.name,
-                    textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: MyColor.customColor,
-                        ),
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: MyColor.customColor,
+                  ),
                 ),
               ))
             ],
           ),
         )
-        
-        
+
         // Container(
         //   decoration: BoxDecoration(
         //       color: Colors.grey[600], borderRadius: BorderRadius.circular(10)),

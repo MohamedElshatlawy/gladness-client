@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
+
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 import 'package:qutub_clinet/API/CommonCollections.dart';
@@ -73,7 +73,8 @@ class _CheckoutReservationState extends State<CheckoutReservation> {
     // }
     //return myStr;
   }
-  Map<String,dynamic> selectedPriceByUser={};
+
+  Map<String, dynamic> selectedPriceByUser = {};
   List<Widget> getProductsWidgets({String type}) {
     total = 0;
     List<Widget> productsWidgets = [];
@@ -88,7 +89,8 @@ class _CheckoutReservationState extends State<CheckoutReservation> {
     print("LenPrice:${widget.model.priceList.length}");
     for (int i = 0; i < widget.model.priceList.length; i++) {
       if (trueIndexs.contains(i)) {
-        selectedPriceByUser[widget.model.priceList.keys.elementAt(i)]=widget.model.priceList.values.elementAt(i);
+        selectedPriceByUser[widget.model.priceList.keys.elementAt(i)] =
+            widget.model.priceList.values.elementAt(i);
         int price = int.parse(widget.model.priceList.values.elementAt(i));
         print(price);
         total += price;
@@ -107,7 +109,7 @@ class _CheckoutReservationState extends State<CheckoutReservation> {
 
   var noteController = TextEditingController();
 
-  String selectedDate ;
+  String selectedDate;
   String selectedTime;
   ReservationModel reservationModel;
   var checkoutKey = GlobalKey<ScaffoldState>();
@@ -295,64 +297,61 @@ class _CheckoutReservationState extends State<CheckoutReservation> {
                                     child: CalenderDialog(
                                         selectedDate, widget.vendorModel)),
                               ));
-                              if(result[0]!=null){
-                                 selectedDate = result[0].toString();
-                              }else{
-                                selectedDate=null; 
-                              }
-                     
+                      if (result[0] != null) {
+                        selectedDate = result[0].toString();
+                      } else {
+                        selectedDate = null;
+                      }
+
                       // selectedDate=result[0];
                       print("BackDate:$selectedDate");
                       setState(() {});
                       print("MyTotalPrice:$total");
-                     
-                  //    print(reservationModel.toMap());
+
+                      //    print(reservationModel.toMap());
                     },
                     textColor: Colors.white,
-                    txt: (selectedDate==null)
+                    txt: (selectedDate == null)
                         ? 'تحديد التاريخ'
                         : '$selectedDate'),
                 SizedBox(
                   height: 10,
                 ),
-                (selectedDate==null)?
-                Container():
-                CustomButton(
-                  backgroundColor: MyColor.customColor,
-                  btnPressed: (){
-                    DatePicker.showTimePicker(context,
-                    onConfirm: (dt){
-                    final f = new intl.DateFormat('hh:mm');
-                    String s=f.format(dt);
-                      selectedTime=s;
-                      setState(() {
-                        
-                      });
-                    }
-                    );
-                   
-                  },
-                  textColor: Colors.white,
-                  txt:(selectedTime==null)? 'تحديد الوقت':selectedTime,
-                ),
+                (selectedDate == null)
+                    ? Container()
+                    : CustomButton(
+                        backgroundColor: MyColor.customColor,
+                        btnPressed: () {
+                          DatePicker.showTimePicker(context, onConfirm: (dt) {
+                            final f = new intl.DateFormat().add_jm();
+                            String s = f.format(dt);
+                            selectedTime = s;
+                            setState(() {});
+                          });
+                        },
+                        textColor: Colors.white,
+                        txt: (selectedTime == null)
+                            ? 'تحديد الوقت'
+                            : selectedTime,
+                      ),
                 SizedBox(
                   height: 10,
                 ),
-                (selectedTime==null)
+                (selectedTime == null)
                     ? Container()
                     : CustomButton(
                         backgroundColor: MyColor.customColor,
                         btnPressed: () async {
                           print("SecondTotalPrice:$total");
-                           reservationModel = ReservationModel(
-                          clientID: FirebaseAuth.instance.currentUser.uid,
-                          notes: noteController.text,
-                          paymentMethod: "cash",
-                          selectedDate: selectedDate,
-                          selectedTime: selectedTime,
-                          
-                          totalPrice: total.toString(),
-                          selectedItems:selectedPriceByUser);
+                          reservationModel = ReservationModel(
+                              clientID: FirebaseAuth.instance.currentUser.uid,
+                              notes: noteController.text,
+                              paymentMethod: "cash",
+                              selectedDate: selectedDate,
+                              selectedTime: selectedTime,
+                              vendorName: widget.vendorModel.name,
+                              totalPrice: total.toString(),
+                              selectedItems: selectedPriceByUser);
                           showMyDialog(
                               context: context, msg: 'جاري ارسال الطلب');
                           await FirebaseFirestore.instance
@@ -392,8 +391,6 @@ class _CheckoutReservationState extends State<CheckoutReservation> {
                         textColor: Colors.white,
                         txt: 'تنفيذ الطلب',
                       )
-            
-           
               ],
             ),
           ),
@@ -401,24 +398,20 @@ class _CheckoutReservationState extends State<CheckoutReservation> {
       ),
     );
   }
-    Future<dynamic> sendDashboardNotification() async {
-  
-  await FirebaseFirestore.instance
-      .collection(MyCollections.dashBoardUsers)
-      .get()
-      .then((value) async {
-        print('DocsValue:${value.docs.length}');
-        
-    Future.forEach(value.docs, (element) async {
-      if (element.data()['fcm_token'] != null) {
-        print('Token:${element.data()['fcm_token']}');
-        await sendToAllClients(element.data()['fcm_token'], 'طلب جديد');
-       
-      }
+
+  Future<dynamic> sendDashboardNotification() async {
+    await FirebaseFirestore.instance
+        .collection(MyCollections.dashBoardUsers)
+        .get()
+        .then((value) async {
+      print('DocsValue:${value.docs.length}');
+
+      Future.forEach(value.docs, (element) async {
+        if (element.data()['fcm_token'] != null) {
+          print('Token:${element.data()['fcm_token']}');
+          await sendToAllClients(element.data()['fcm_token'], 'طلب جديد');
+        }
+      });
     });
-   
-  });
-}
-
-
+  }
 }

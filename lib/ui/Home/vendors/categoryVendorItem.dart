@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:qutub_clinet/API/vendors.dart';
 import 'package:qutub_clinet/models/vendorModel.dart';
@@ -20,7 +21,7 @@ class CategoryVendorItem extends StatelessWidget {
         onTap: () {
           Navigator.push(
               context,
-              MaterialPageRoute(
+              MaterialPageRoute( 
                   builder: (ctx) => CategoryProducts(
                     
                         vendorModel: vendorModel,
@@ -39,11 +40,24 @@ class CategoryVendorItem extends StatelessWidget {
               Expanded(
                   child: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
-                child: Image.network(
-                  vendorModel.imgPath,
-                  fit: BoxFit.cover,
-                  height: double.infinity,
-                ),
+                child:  CachedNetworkImage(
+                        imageUrl: vendorModel.imgPath,
+                        fit: BoxFit.cover,
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                               ),
+                          ),
+                        ),
+                        placeholder: (context, url) =>
+                            Container(
+                              width: 100,
+                              height: 100,
+                              child: Center(child: CircularProgressIndicator())),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      )
               )),
               Expanded(
                   child: Center(

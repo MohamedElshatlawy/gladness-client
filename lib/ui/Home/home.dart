@@ -158,13 +158,13 @@ class _MainHomeState extends State<MainHome> {
                         homeKey: homeKey,
                       )
                     : (bottomNavProvider.selectedIndex == 2)
-                        ? HomeTab()
+                        ? HomeTab() 
                         // : bottomNavProvider.selectedIndex == 1
                         //     ? FavouriteTab()
                         //     : bottomNavProvider.selectedIndex == 2
                         //         ? CartTab()
                         : (bottomNavProvider.selectedIndex == 1)
-                            ? OrderTab()
+                            ? OrderTab() 
                             : More())));
   }
 }

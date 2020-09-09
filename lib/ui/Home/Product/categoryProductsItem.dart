@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:qutub_clinet/API/products.dart';
@@ -54,19 +55,32 @@ class CategoryProductItem extends StatelessWidget {
         },
        child: Container(
           decoration: BoxDecoration(
-              color: Colors.grey[600], borderRadius: BorderRadius.circular(10)),
+             borderRadius: BorderRadius.circular(10)),
           child: Stack(
             fit: StackFit.expand,
             children: <Widget>[
-              Opacity(
-                opacity: .5,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(
-                      productModel.galleryPaths[index],
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child:  CachedNetworkImage(
+                      imageUrl: productModel.galleryPaths[index],
                       fit: BoxFit.cover,
-                    )),
-              ),
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                             ),
+                        ),
+                      ),
+                      placeholder: (context, url) =>
+                          Container(
+                            width: 100,
+                            height: 100,
+                            child: Center(child: CircularProgressIndicator())),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    )
+                  
+                  ),
               //   Align(
               //     alignment: Alignment.centerLeft,
               //     child: RotatedBox(

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qutub_clinet/API/authentication.dart';
@@ -100,25 +101,27 @@ class _MoreState extends State<More> {
                       //               userModel: userProvider.userModel,
                       //             )));
                     },
-                    trailing: Container(
-                      decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25)
-                      ),
-                      width: 140,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded( 
-                            child: Text('العربية'),
-                          ),
-                          Expanded(
-                            child: Text(
-                              'الإنجليزية',
-                              style: TextStyle(fontSize: 10),
-                            ),
-                          )
-                        ],
-                      ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          (arEnabled) ? 'العربية' : 'الإنجليزية',
+                          style: TextStyle(color: MyColor.customColor),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        CupertinoSwitch(
+                          value: arEnabled,
+                          onChanged: (v) {
+                            setState(() {
+                              arEnabled = v;
+                            });
+                          },
+                          activeColor: MyColor.customColor,
+                          trackColor: MyColor.customColor,
+                        )
+                      ],
                     ),
                     leading: Icon(
                       Icons.language,
@@ -288,7 +291,7 @@ class _MoreState extends State<More> {
                       color: MyColor.customColor,
                     ),
                     title: Text(
-                      'ارقام التواصل',
+                      'اتصل بنا',
                       style: TextStyle(color: MyColor.customColor),
                     ),
                   ),

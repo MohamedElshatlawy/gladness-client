@@ -68,7 +68,7 @@ class CategoryVendors extends StatelessWidget {
                               var vendorModel = VendorModel.fromJson(
                                   id: snapSHot.data.docs[index].id, 
                                   json: snapSHot.data.docs[index].data());
-                              return CategoryVendorItem( 
+                              return CategoryVendorItem(  
                                 index: index,
                                 vendorModel: vendorModel,
                               );

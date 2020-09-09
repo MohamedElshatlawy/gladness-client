@@ -41,7 +41,7 @@ class HomeTab extends StatelessWidget {
                       name: snapSHot.data.docs[index].data()['name'],
                       imgPath:  
                           snapSHot.data.docs[index].data()['imgPath']);
-                  return CategoryItem(
+                  return CategoryItem( 
                     categoryModel: model,
                     index: index,
                   );
