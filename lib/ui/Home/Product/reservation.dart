@@ -4,6 +4,7 @@ import 'package:qutub_clinet/API/CommonCollections.dart';
 import 'package:qutub_clinet/FCM/fcmConfig.dart';
 import 'package:qutub_clinet/models/productModel.dart';
 import 'package:qutub_clinet/models/vendorModel.dart';
+import 'package:qutub_clinet/ui/Home/Product/new_checkout.dart';
 import 'package:qutub_clinet/ui/Home/Product/reservation_list_item.dart';
 import 'package:qutub_clinet/ui/widgets/customButton.dart';
 import 'package:qutub_clinet/ui/widgets/snackBarAndDialog.dart';
@@ -130,26 +131,38 @@ class _PriceListViewState extends State<Reservation> {
                                       textColor: MyColor.customColor,
                                       txt: 'اختيار',
                                       btnPressed: () {
+                                     
                                         int c = 0;
                                         selectedPriceList.forEach((key, value) {
                                           if (value == true) c++;
                                         });
                                         if (c != 0) {
                                           print(selectedPriceList);
+                                          // Navigator.push(
+                                          //     context,
+                                          //     MaterialPageRoute(
+                                          //         builder: (ctx) =>
+                                          //             CheckoutReservation(
+                                          //                 selectedPriceList,
+                                          //                 productModel,
+                                          //                 widget.vendorModel)));
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (ctx) =>
-                                                      CheckoutReservation(
+                                                      NewCheckout(
                                                           selectedPriceList,
                                                           productModel,
                                                           widget.vendorModel)));
+                                          
                                         } else {
                                           showSnackbarError(
                                               msg:
                                                   'قم بأختيار منتج من قائمة الأسعار',
                                               scaffoldKey: resev_key);
                                         }
+
+
                                       },
                                     ),
                                   )

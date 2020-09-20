@@ -17,7 +17,7 @@ class CategoryVendorItem extends StatelessWidget {
     
     return Container(
       child: InkWell(
-      
+       
         onTap: () {
           Navigator.push(
               context,

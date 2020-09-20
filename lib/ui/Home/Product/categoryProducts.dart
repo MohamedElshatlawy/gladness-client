@@ -140,41 +140,60 @@ class CategoryProducts extends StatelessWidget {
                               SizedBox(
                                 height: 10,
                               ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: CustomButton(
-                                      backgroundColor: MyColor.customColor,
-                                      btnPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (ctx) => 
-                                                    Reservation(vendorModel)));
-                                      },
-                                      textColor: Colors.white,
-                                      txt: 'حجز الخدمة',
-                                    ),
-                                  ),
-                                  // SizedBox(
-                                  //   width: 15,
-                                  // ),
-                                  // Expanded(
-                                  //   child: CustomButton(
-                                  //     backgroundColor: MyColor.customColor,
-                                  //     btnPressed: () {
-                                  //       Navigator.push(
-                                  //           context,
-                                  //           MaterialPageRoute(
-                                  //               builder: (ctx) => PriceListView(
-                                  //                   vendorModel)));
-                                  //     },
-                                  //     textColor: Colors.white,
-                                  //     txt: 'قائمة الأسعار',
-                                  //   ),
-                                  // ),
-                                ],
+                              Container( 
+                                width: 150,
+                                child: RaisedButton(onPressed: (){
+                                       Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (ctx) => 
+                                                      Reservation(vendorModel)));
+                                },
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:BorderRadius.circular(30),
+                                  
+                                ),
+                                color: Colors.white,
+                                textColor: MyColor.customColor,
+                                child: Text('حجز الخدمة'),
+                                ),
                               )
+                              // Row(
+                              //   children: [
+                              //     Expanded(
+                              //       child: CustomButton(
+                              //         backgroundColor: MyColor.customColor,
+                              //         btnPressed: () {
+                              //           Navigator.push(
+                              //               context,
+                              //               MaterialPageRoute(
+                              //                   builder: (ctx) => 
+                              //                       Reservation(vendorModel)));
+                              //         },
+                              //         textColor: Colors.white,
+                              //         txt: 'حجز الخدمة',
+                              //       ),
+                              //     ),
+                              //     // SizedBox(
+                              //     //   width: 15,
+                              //     // ),
+                              //     // Expanded(
+                              //     //   child: CustomButton(
+                              //     //     backgroundColor: MyColor.customColor,
+                              //     //     btnPressed: () {
+                              //     //       Navigator.push(
+                              //     //           context,
+                              //     //           MaterialPageRoute(
+                              //     //               builder: (ctx) => PriceListView(
+                              //     //                   vendorModel)));
+                              //     //     },
+                              //     //     textColor: Colors.white,
+                              //     //     txt: 'قائمة الأسعار',
+                              //     //   ),
+                              //     // ),
+                              //   ],
+                              // )
+                         
                             ],
                           );
                 }

@@ -42,7 +42,11 @@ class _CalenderDialogState extends State<CalenderDialog> {
       children: [
         TableCalendar(
           calendarController: calendarController,
-          builders: CalendarBuilders(dayBuilder: (ctx, d, list) {
+        initialCalendarFormat: CalendarFormat.month,
+         
+          builders: CalendarBuilders(
+            
+            dayBuilder: (ctx, d, list) {
             String dayDate = d.toString().split(" ")[0];
             String dayName = getDayName(d);
 
@@ -86,14 +90,14 @@ class _CalenderDialogState extends State<CalenderDialog> {
         SizedBox(
           height: 8,
         ),
-        CustomButton(
-          backgroundColor: MyColor.customColor,
-          textColor: Colors.white,
-          btnPressed: () {
-            Navigator.pop(context, [widget.selectedDateTime]);
-          },
-          txt: 'تأكيد',
-        )
+        // CustomButton(
+        //   backgroundColor: MyColor.customColor,
+        //   textColor: Colors.white,
+        //   btnPressed: () {
+        //     Navigator.pop(context, [widget.selectedDateTime]);
+        //   },
+        //   txt: 'تأكيد',
+        // )
       ],
     );
   }
