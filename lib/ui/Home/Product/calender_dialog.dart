@@ -8,7 +8,8 @@ import 'package:table_calendar/table_calendar.dart';
 class CalenderDialog extends StatefulWidget {
   String selectedDateTime;
   VendorModel vendorModel;
-  CalenderDialog(this.selectedDateTime, this.vendorModel);
+  var parentCtx;
+  CalenderDialog(this.selectedDateTime, this.vendorModel, this.parentCtx);
 
   @override
   _CalenderDialogState createState() => _CalenderDialogState();
@@ -33,7 +34,7 @@ class _CalenderDialogState extends State<CalenderDialog> {
   DateTime selectedDay;
   @override
   Widget build(BuildContext context) {
-    print(widget.selectedDateTime);
+    print(widget.parentCtx.selectedDate);
     List nonRegularsDays = widget.vendorModel.nonRegulars.keys.toList();
     List regularholidays = widget.vendorModel.regularHolidays;
     print(widget.vendorModel.nonRegulars);
@@ -42,11 +43,8 @@ class _CalenderDialogState extends State<CalenderDialog> {
       children: [
         TableCalendar(
           calendarController: calendarController,
-        initialCalendarFormat: CalendarFormat.month,
-         
-          builders: CalendarBuilders(
-            
-            dayBuilder: (ctx, d, list) {
+          initialCalendarFormat: CalendarFormat.week,
+          builders: CalendarBuilders(dayBuilder: (ctx, d, list) {
             String dayDate = d.toString().split(" ")[0];
             String dayName = getDayName(d);
 
@@ -76,15 +74,18 @@ class _CalenderDialogState extends State<CalenderDialog> {
             String dayName = getDayName(d);
             if (!(nonRegularsDays.contains(dayDate) ||
                 regularholidays.contains(mappingDayNames[dayName]))) {
-              widget.selectedDateTime = d.toString().split(" ")[0];
+              print('Yes');
+              widget.parentCtx.selectedDate = d.toString().split(" ")[0];
+              widget.parentCtx.setState(() {});
             } else {
               print("No");
-              widget.selectedDateTime=null;
+              widget.parentCtx.selectedDate = null;
             }
 
             selectedDay = d;
             setState(() {});
-            print("DateInDialog:${widget.selectedDateTime}");
+            widget.parentCtx.setState(() {});
+            print("DateInDialog:${widget.parentCtx.selectedDate}");
           },
         ),
         SizedBox(

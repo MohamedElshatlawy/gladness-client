@@ -43,7 +43,7 @@ class ReservationModel {
         "payment": this.paymentMethod,
         "notes": this.notes,
         "time_stamp": DateTime.now().millisecondsSinceEpoch,
-        "status": "confirm",
+        "status": "sent",
         "vendor_name": this.vendorName,
         "selected_time": this.selectedTime
       };

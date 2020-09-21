@@ -57,7 +57,8 @@ class _OrderDetailsState extends State<OrderDetails> {
     }
     return productsWidgets;
   }
-  var myKey=GlobalKey<ScaffoldState>();
+
+  var myKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -336,84 +337,139 @@ class _OrderDetailsState extends State<OrderDetails> {
                 SizedBox(
                   height: 10,
                 ),
-            (widget.orderModel.status=="cancel")?
-            Container():
-                CustomButton(
-                  backgroundColor: Colors.red[800],
-                  btnPressed: () async {
-                    //cancel reservation
-                    showDialog(context: context,
-                    barrierDismissible: false,
-                    builder: (ctx)=>Directionality(
-                      textDirection: TextDirection.rtl,
-                                          child: AlertDialog(
-                        content: Text('هل تريد الغاء الحجز؟',style:TextStyle(
-                          color: MyColor.customColor
-                        )),
-                        actions: [
-                               RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)
-                            ),
-                           
-                            
-                            onPressed: (){
-                              dismissDialog(context);
-                            },
-                          child: Text('لا',style: TextStyle(
-                         
-                          ),),
-                          color: MyColor.customColor,
-                          textColor: MyColor.whiteColor,
-                          )
-                      ,
-                          OutlineButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)
-                            ),
-                            borderSide: BorderSide(
-                              color: MyColor.customColor
-                           
-                            ),
-                            
-                            onPressed: () async {
-                                dismissDialog(context);
-                                  showMyDialog(context: context, msg: 'جاري الغاء الحجز');
-                    await cancelReservation(model: widget.orderModel)
-                        .then((value) {
-                      dismissDialog(context); 
-                      sendDashboardNotificationReject();
-                      Fluttertoast.showToast(
-                          msg: "تم الغاء الحجز بنجاح",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.green[600],
-                          textColor: Colors.white,
-                          fontSize: 16.0);
-                      Navigator.pop(context);
-                    }).catchError((e){
-                      dismissDialog(context);
-                      showSnackbarError(
-                        scaffoldKey: myKey,
-                        msg: 'حدث خطأ اثناء الألغاء .. حاول مرة اخرى'
-                      );
-                    });
-                            },
-                          child: Text('نعم',style: TextStyle(
-                            color: MyColor.customColor
-                          ),),
-                          color: MyColor.whiteColor,
-                          )
-                        ],
-                      ),
-                    )
-                    );
-                  
-                  },
-                  textColor: Colors.white,
-                  txt: 'الغاء الحجز',
-                )
+                (widget.orderModel.status == "cancel")
+                    ? Container()
+                    : CustomButton(
+                        backgroundColor: Colors.red[800],
+                        btnPressed: () async {
+                          //cancel reservation
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (ctx) => Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: AlertDialog(
+                                      content: Text('هل تريد الغاء الحجز؟',
+                                          style: TextStyle(
+                                              color: MyColor.customColor)),
+                                      actions: [
+                                        RaisedButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          onPressed: () {
+                                            dismissDialog(context);
+                                          },
+                                          child: Text(
+                                            'لا',
+                                            style: TextStyle(),
+                                          ),
+                                          color: MyColor.customColor,
+                                          textColor: MyColor.whiteColor,
+                                        ),
+                                        OutlineButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          borderSide: BorderSide(
+                                              color: MyColor.customColor),
+                                          onPressed: () async {
+                                            dismissDialog(context);
+                                            showMyDialog(
+                                                context: context,
+                                                msg: 'جاري الغاء الحجز');
+                                            await cancelReservation(
+                                                    model: widget.orderModel)
+                                                .then((value) {
+                                              dismissDialog(context);
+                                              sendDashboardNotificationReject();
+                                              showDialog(
+                                                  context: context,
+                                                  barrierDismissible: false,
+                                                  builder: (ctx) => AlertDialog(
+                                                        content: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            Icon(
+                                                              Icons
+                                                                  .check_circle,
+                                                              color: Color
+                                                                  .fromRGBO(
+                                                                      43,
+                                                                      188,
+                                                                      177,
+                                                                      1),
+                                                              size: 80,
+                                                            ),
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            Text(
+                                                              'تم الغاء الحجز بنجاح',
+                                                              style: TextStyle(
+                                                                  color: MyColor
+                                                                      .customColor),
+                                                            ),
+                                                            SizedBox(
+                                                              height: 15,
+                                                            ),
+                                                            RaisedButton(
+                                                              onPressed: () {
+                                                                dismissDialog(
+                                                                    context);
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10),
+                                                              ),
+                                                              textColor:
+                                                                  Colors.white,
+                                                              color: MyColor
+                                                                  .customColor,
+                                                              child: Text(
+                                                                  'العودة'),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ));
+                                              // Fluttertoast.showToast(
+                                              //     msg: "تم الغاء الحجز بنجاح",
+                                              //     toastLength:
+                                              //         Toast.LENGTH_SHORT,
+                                              //     gravity: ToastGravity.CENTER,
+                                              //     timeInSecForIosWeb: 1,
+                                              //     backgroundColor:
+                                              //         Colors.green[600],
+                                              //     textColor: Colors.white,
+                                              //     fontSize: 16.0);
+                                            }).catchError((e) {
+                                              dismissDialog(context);
+                                              showSnackbarError(
+                                                  scaffoldKey: myKey,
+                                                  msg:
+                                                      'حدث خطأ اثناء الألغاء .. حاول مرة اخرى');
+                                            });
+                                          },
+                                          child: Text(
+                                            'نعم',
+                                            style: TextStyle(
+                                                color: MyColor.customColor),
+                                          ),
+                                          color: MyColor.whiteColor,
+                                        )
+                                      ],
+                                    ),
+                                  ));
+                        },
+                        textColor: Colors.white,
+                        txt: 'الغاء الحجز',
+                      )
                 // (widget.orderModel.status==Common.rejectedStatus)?
                 // Column(
                 //   mainAxisAlignment: MainAxisAlignment.start,
@@ -455,20 +511,17 @@ class _OrderDetailsState extends State<OrderDetails> {
     );
   }
 
-Future<dynamic> sendDashboardNotificationReject() async {
-  
-  await FirebaseFirestore.instance
-      .collection(MyCollections.dashBoardUsers)
-      .get()
-      .then((value) async {
-    Future.forEach(value.docs, (element) async {
-      if (element.data()['fcm_token'] != null) {
-        print('Token:${element.data()['fcm_token'] }');
-        await sendToAllClients(element.data()['fcm_token'], 'حجز ملغي');
-      
-      }
+  Future<dynamic> sendDashboardNotificationReject() async {
+    await FirebaseFirestore.instance
+        .collection(MyCollections.dashBoardUsers)
+        .get()
+        .then((value) async {
+      Future.forEach(value.docs, (element) async {
+        if (element.data()['fcm_token'] != null) {
+          print('Token:${element.data()['fcm_token']}');
+          await sendToAllClients(element.data()['fcm_token'], 'حجز ملغي');
+        }
+      });
     });
-   
-  });
-}
+  }
 }

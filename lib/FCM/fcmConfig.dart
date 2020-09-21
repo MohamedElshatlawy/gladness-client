@@ -20,46 +20,41 @@ Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
   // Or do other work.
 }
 
-Future<dynamic>getFcmToken()async{
-  FirebaseMessaging firebaseMessaging=FirebaseMessaging();
-  String token=await firebaseMessaging.getToken();
+Future<dynamic> getFcmToken() async {
+  FirebaseMessaging firebaseMessaging = FirebaseMessaging();
+  String token = await firebaseMessaging.getToken();
 
-  User user= FirebaseAuth.instance.currentUser;
+  User user = FirebaseAuth.instance.currentUser;
 
- FirebaseFirestore.instance.collection(MyCollections.userCollection)
-  .doc(user.uid)
-  .update({'fcm_token':token});
-
+  FirebaseFirestore.instance
+      .collection(MyCollections.userCollection)
+      .doc(user.uid)
+      .update({'fcm_token': token});
 }
 
 Future<dynamic> seenNotification() async {
-  User user= FirebaseAuth.instance.currentUser;
-  await FirebaseFirestore.instance.collection(MyCollections.userCollection)
-  .doc(user.uid)
-  .collection(MyCollections.notification)
-  .get().then((value) => value.documents.forEach((element) { 
-    element.reference.update({
-      'seen':true
-    });
-
-  }));
+  User user = FirebaseAuth.instance.currentUser;
+  await FirebaseFirestore.instance
+      .collection(MyCollections.userCollection)
+      .doc(user.uid)
+      .collection(MyCollections.notification)
+      .get()
+      .then((value) => value.documents.forEach((element) {
+            element.reference.update({'seen': true});
+          }));
 }
 
-
 Future<dynamic> sendDashboardNotification() async {
-  
   await FirebaseFirestore.instance
       .collection(MyCollections.dashBoardUsers)
       .get()
       .then((value) async {
     Future.forEach(value.docs, (element) async {
-      if (element.data['fcm_token'] != null) {
-        print('Token:${element.data['fcm_token'] }');
-        await sendToAllClients(element.data['fcm_token'], 'طلب جديد');
-      
+      if (element.data()['fcm_token'] != null) {
+        print('Token:${element.data()['fcm_token']}');
+        await sendToAllClients(element.data()['fcm_token'], 'طلب جديد');
       }
     });
-   
   });
 }
 

@@ -5,36 +5,34 @@ import 'package:qutub_clinet/models/reservation_model.dart';
 import 'package:qutub_clinet/ui/Home/Order/orderDetails.dart';
 
 import '../../colors.dart';
+import 'new_order_details.dart';
 
 class OrderListItem extends StatelessWidget {
-  int index; 
+  int index;
   ReservationModel orderModel;
   OrderListItem({this.index, this.orderModel});
   @override
   Widget build(BuildContext context) {
-    
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, 
+            context,
             MaterialPageRoute(
-                builder: (ctx) => OrderDetails(
-                      orderModel: orderModel,
+                builder: (ctx) => NewOrderDetails(
+                      reservationModel: orderModel,
                     )));
       },
       child: Container(
-         decoration: BoxDecoration(
-           borderRadius: BorderRadius.circular(15),
-           color: MyColor.whiteColor,
-         ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: MyColor.whiteColor,
+        ),
         child: Row(
           textDirection: TextDirection.rtl,
           children: <Widget>[
             Expanded(
                 child: Container(
-                 
               padding: EdgeInsets.all(10),
-           
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -42,45 +40,54 @@ class OrderListItem extends StatelessWidget {
                     'طلب رقم # $index',
                     style: TextStyle(color: MyColor.customColor),
                   ),
-
-                 Text(
+                  Text(
                     'اسم التاجر : ${orderModel.vendorName}',
                     style: TextStyle(color: MyColor.customColor),
                   ),
-                  
                 ],
               ),
             )),
             Container(
-               decoration: BoxDecoration(
-                     borderRadius: BorderRadius.circular(15),
-                       color:  (orderModel.status=="cancel")?MyColor.custGrey2: MyColor.customColor,
-                  ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: (orderModel.status == "cancel")
+                    ? MyColor.custGrey2
+                    : MyColor.customColor,
+              ),
               padding: EdgeInsets.all(5),
               width: MediaQuery.of(context).size.width / 4,
-            
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    (orderModel.status=="cancel")?"تم الإلغاء":
-                    "تم الطلب",
+                    (orderModel.status == "cancel") ? "تم الإلغاء" : "تم الطلب",
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: (orderModel.status=="cancel")?MyColor.customColor: MyColor.whiteColor),
+                    style: TextStyle(
+                        color: (orderModel.status == "cancel")
+                            ? MyColor.customColor
+                            : MyColor.whiteColor),
                   ),
                   Divider(
-                    color:(orderModel.status=="cancel")?MyColor.customColor: MyColor.whiteColor,
+                    color: (orderModel.status == "cancel")
+                        ? MyColor.customColor
+                        : MyColor.whiteColor,
                     endIndent: 10,
                     indent: 10,
                   ),
                   Text(
                     '${orderModel.totalPrice}',
-                    style: TextStyle(color: (orderModel.status=="cancel")?MyColor.customColor:MyColor.whiteColor),
+                    style: TextStyle(
+                        color: (orderModel.status == "cancel")
+                            ? MyColor.customColor
+                            : MyColor.whiteColor),
                   ),
                   Text(
                     'ريال',
-                    style: TextStyle(color:(orderModel.status=="cancel")?MyColor.customColor: MyColor.whiteColor),
+                    style: TextStyle(
+                        color: (orderModel.status == "cancel")
+                            ? MyColor.customColor
+                            : MyColor.whiteColor),
                   )
                 ],
               ),

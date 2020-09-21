@@ -294,8 +294,8 @@ class _CheckoutReservationState extends State<CheckoutReservation> {
                           builder: (ctx) => AlertDialog(
                                 content: Container(
                                     width: MediaQuery.of(context).size.width,
-                                    child: CalenderDialog(
-                                        selectedDate, widget.vendorModel)),
+                                    child: CalenderDialog(selectedDate,
+                                        widget.vendorModel, null)),
                               ));
                       if (result[0] != null) {
                         selectedDate = result[0].toString();
