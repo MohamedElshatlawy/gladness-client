@@ -5,6 +5,7 @@ import 'package:qutub_clinet/API/reservation.dart';
 import 'package:qutub_clinet/FCM/fcmConfig.dart';
 import 'package:qutub_clinet/models/reservation_model.dart';
 import 'package:qutub_clinet/ui/Home/Order/calender_order_details.dart';
+import 'package:qutub_clinet/ui/Home/Order/payment1.dart';
 import 'package:qutub_clinet/ui/widgets/customButton.dart';
 import 'package:qutub_clinet/ui/widgets/snackBarAndDialog.dart';
 
@@ -51,6 +52,7 @@ class _NewOrderDetailsState extends State<NewOrderDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyColor.custGrey2,
       key: myKey,
       appBar: AppBar(
         title: Text(
@@ -112,10 +114,47 @@ class _NewOrderDetailsState extends State<NewOrderDetails> {
                         SizedBox(
                           height: 10,
                         ),
-                        ListTile(
-                          leading: Text('الوقت'),
-                          title: Text(widget.reservationModel.selectedTime),
-                        )
+                        Card(
+                          color: MyColor.customColor,
+                          child: ListTile(
+                            leading: Text(
+                              'الوقت',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            title: Text(widget.reservationModel.selectedTime,
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                        ),
+                        (widget.reservationModel.status == "confirm")
+                            ? Column(
+                                children: [
+                                  SizedBox(
+                                    height: 30,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text('الدفع', style: TextStyle()),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Card(
+                                    color: MyColor.customColor,
+                                    child: ListTile(
+                                      title: Text(
+                                        'بطاقة مدي',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      subtitle: Text(
+                                        '8888 3333 **** ****',
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              )
+                            : Container()
                       ],
                     ),
                   ),
@@ -259,7 +298,15 @@ class _NewOrderDetailsState extends State<NewOrderDetails> {
                                 Container(
                                   width: 100,
                                   child: RaisedButton(
-                                    onPressed: () async {},
+                                    onPressed: () async {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (ctx) => Payment1(
+                                                    reservationModel:
+                                                        widget.reservationModel,
+                                                  )));
+                                    },
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(20)),

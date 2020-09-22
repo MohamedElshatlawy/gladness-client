@@ -36,15 +36,14 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       backgroundColor: MyColor.customGreyColor,
       key: profileKey,
-     body: SafeArea(
-            child: Container(
-        
+      body: SafeArea(
+        child: Container(
           child: Directionality(
             textDirection: TextDirection.rtl,
             child: Column(
               children: <Widget>[
                 Container(
-                  height: MediaQuery.of(context).size.height / 3-30 ,
+                  height: MediaQuery.of(context).size.height / 3 - 30,
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
@@ -121,16 +120,15 @@ class _ProfileState extends State<Profile> {
                             ],
                           ),
                         ),
-                      )
-                      ,Align(
+                      ),
+                      Align(
                         alignment: Alignment.topLeft,
-                        child:  IconButton(
-            icon: Icon(
-              Icons.arrow_forward_ios,
-              color: MyColor.customColor,
-              
-            ),
-            onPressed: () => Navigator.pop(context)),
+                        child: IconButton(
+                            icon: Icon(
+                              Icons.arrow_forward_ios,
+                              color: MyColor.customColor,
+                            ),
+                            onPressed: () => Navigator.pop(context)),
                       )
                     ],
                   ),
@@ -139,71 +137,72 @@ class _ProfileState extends State<Profile> {
                   height: 15,
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  child: Column(
-                  children: [
-                         CustomTextField(
-                  controller: widget.nameController,
-                  labelColor: MyColor.customColor,
-                  txtColor: MyColor.customColor,
-                  txtLablel: 'اسم المستخدم',
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                CustomTextField(
-                  controller: widget.mailController,
-                  labelColor: MyColor.customColor,
-                  txtColor: MyColor.customColor,
-                  txtLablel: 'البريد الألكتروني',
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                CustomTextField(
-                  isEditForProfile: true,
-                  controller: widget.phoneController,
-                  isEdit: false,
-                  labelColor: MyColor.customColor,
-                  txtColor: MyColor.customColor,
-                  txtLablel: 'رقم التليفون',
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                CustomButton(
-                  backgroundColor: MyColor.customColor,
-                  textColor: MyColor.whiteColor,
-                  txt: 'تعديل',
-                  btnPressed: () async {
-                    if (widget.nameController.text.isEmpty) {
-                      showSnackbarError(
-                          msg: 'من فضلك ادخل اسم المستخدم',
-                          scaffoldKey: profileKey);
-                      return;
-                    }
-                    widget.userModel.name = widget.nameController.text;
-                    widget.userModel.email = widget.mailController.text;
+                    margin: EdgeInsets.symmetric(horizontal: 15),
+                    child: Column(
+                      children: [
+                        CustomTextField(
+                          controller: widget.nameController,
+                          labelColor: MyColor.customColor,
+                          txtColor: MyColor.customColor,
+                          txtLablel: 'اسم المستخدم',
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        CustomTextField(
+                          controller: widget.mailController,
+                          labelColor: MyColor.customColor,
+                          txtColor: MyColor.customColor,
+                          txtLablel: 'البريد الألكتروني',
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        CustomTextField(
+                          isEditForProfile: true,
+                          controller: widget.phoneController,
+                          isEdit: false,
+                          labelColor: MyColor.customColor,
+                          txtColor: MyColor.customColor,
+                          txtLablel: 'رقم التليفون',
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        CustomButton(
+                          backgroundColor: MyColor.customColor,
+                          textColor: MyColor.whiteColor,
+                          txt: 'تعديل',
+                          btnPressed: () async {
+                            if (widget.nameController.text.isEmpty) {
+                              showSnackbarError(
+                                  msg: 'من فضلك ادخل اسم المستخدم',
+                                  scaffoldKey: profileKey);
+                              return;
+                            }
+                            widget.userModel.name = widget.nameController.text;
+                            widget.userModel.email = widget.mailController.text;
 
-                    showMyDialog(context: context, msg: 'جاري تحديث البيانات');
-                    await updateUserInfo(widget.userModel, img).then((value) {
-                      dismissDialog(context);
-                      userProvider.setUser(widget.userModel);
-                      Navigator.pop(context);
-                    }).catchError((e) {
-                      dismissDialog(context);
-                      print('ErrorUpdateUserInfo:$e');
-                    });
-                  },
-                )
-             
-                  ],
-                )),
-            ],
+                            showMyDialog(
+                                context: context, msg: 'جاري تحديث البيانات');
+                            await updateUserInfo(widget.userModel, img)
+                                .then((value) {
+                              dismissDialog(context);
+                              userProvider.setUser(widget.userModel);
+                              Navigator.pop(context);
+                            }).catchError((e) {
+                              dismissDialog(context);
+                              print('ErrorUpdateUserInfo:$e');
+                            });
+                          },
+                        )
+                      ],
+                    )),
+              ],
             ),
           ),
         ),
-     ),
+      ),
     );
   }
 }

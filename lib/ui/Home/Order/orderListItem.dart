@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:qutub_clinet/common.dart';
 import 'package:qutub_clinet/models/orderModel.dart';
@@ -13,6 +15,7 @@ class OrderListItem extends StatelessWidget {
   OrderListItem({this.index, this.orderModel});
   @override
   Widget build(BuildContext context) {
+    //getAsciiID();
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -52,7 +55,9 @@ class OrderListItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
                 color: (orderModel.status == "cancel")
                     ? MyColor.custGrey2
-                    : MyColor.customColor,
+                    : (orderModel.status == "sent")
+                        ? MyColor.customColor
+                        : Color.fromRGBO(43, 188, 177, 1),
               ),
               padding: EdgeInsets.all(5),
               width: MediaQuery.of(context).size.width / 4,
@@ -61,7 +66,11 @@ class OrderListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    (orderModel.status == "cancel") ? "تم الإلغاء" : "تم الطلب",
+                    (orderModel.status == "cancel")
+                        ? "تم الإلغاء"
+                        : (orderModel.status == "confirm")
+                            ? 'تم التأكيد'
+                            : "تم الطلب",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: (orderModel.status == "cancel")
