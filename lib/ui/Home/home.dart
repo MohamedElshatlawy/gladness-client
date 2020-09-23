@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qutub_clinet/API/CommonCollections.dart';
 import 'package:qutub_clinet/FCM/fcmConfig.dart';
+import 'package:qutub_clinet/Locale/appLocalization.dart';
 import 'package:qutub_clinet/Providers/bottomNavProvider.dart';
 import 'package:qutub_clinet/Providers/cartItemsCounterProvider.dart';
 import 'package:qutub_clinet/Providers/userProvider.dart';
@@ -36,7 +37,8 @@ class _MainHomeState extends State<MainHome> {
     var bottomNavProvider = Provider.of<BottomNavProvider>(context);
     var userProvider = Provider.of<UserProvider>(context);
     var cartCountProvider = Provider.of<CartCounterProvider>(context);
-
+    var local = AppLocalizations.of(context);
+    print(local.locale.languageCode);
     return Scaffold(
         key: homeKey,
         backgroundColor: MyColor.customGreyColor,

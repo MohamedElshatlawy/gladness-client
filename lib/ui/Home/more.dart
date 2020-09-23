@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qutub_clinet/API/authentication.dart';
+import 'package:qutub_clinet/Locale/appLocalization.dart';
+import 'package:qutub_clinet/Locale/localizationProvider.dart';
 import 'package:qutub_clinet/Providers/userProvider.dart';
 import 'package:qutub_clinet/ui/Drawer/addAboutUs.dart';
 import 'package:qutub_clinet/ui/Drawer/addContactUs.dart';
@@ -23,6 +25,11 @@ class _MoreState extends State<More> {
   @override
   Widget build(BuildContext context) {
     var userProvider = Provider.of<UserProvider>(context);
+    var local = AppLocalizations.of(context);
+
+    var locProvider = Provider.of<LocalProvider>(context);
+    print(local.locale.languageCode);
+
     return Container(
       child: Directionality(
         textDirection: TextDirection.rtl,
@@ -127,10 +134,17 @@ class _MoreState extends State<More> {
                               cornerRadius: 10.0,
                               activeBgColor: MyColor.customColor,
                               activeFgColor: Colors.white,
+                              initialLabelIndex:
+                                  (local.locale.languageCode == "en") ? 0 : 1,
                               inactiveBgColor: Colors.white,
                               inactiveFgColor: MyColor.customColor,
                               labels: ['العربية', 'الإنجليزية'],
                               onToggle: (index) {
+                                if (local.locale.languageCode == "en") {
+                                  locProvider.changeLanguage(Locale('ar'));
+                                } else {
+                                  locProvider.changeLanguage(Locale('en'));
+                                }
                                 print('switched to: $index');
                               },
                             ),
