@@ -11,6 +11,8 @@ class ReservationModel {
   String reject_reason;
   String vendorName;
   int timeStamp;
+  String vendorImgPath;
+
   ReservationModel.fromJson({String id, Map<String, dynamic> json}) {
     this.firebaseID = id;
     this.vendorName = json['vendor_name'] ?? "";
@@ -22,6 +24,7 @@ class ReservationModel {
     this.notes = json['notes'];
     this.timeStamp = json['time_stamp'];
     this.status = json['status'];
+    this.vendorImgPath = json['vendorImgPath'];
     this.selectedTime = json['selected_time'];
     this.reject_reason = json['reject_reason'];
   }
@@ -33,6 +36,7 @@ class ReservationModel {
       this.selectedDate,
       this.selectedItems,
       this.clientID,
+      this.vendorImgPath,
       this.vendorName,
       this.firebaseID});
   toMap() => {
@@ -44,6 +48,7 @@ class ReservationModel {
         "notes": this.notes,
         "time_stamp": DateTime.now().millisecondsSinceEpoch,
         "status": "sent",
+        "vendorImgPath": this.vendorImgPath,
         "vendor_name": this.vendorName,
         "selected_time": this.selectedTime
       };

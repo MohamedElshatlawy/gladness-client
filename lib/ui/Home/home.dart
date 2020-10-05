@@ -103,9 +103,9 @@ class _MainHomeState extends State<MainHome> {
             selectedItemColor: MyColor.customColor,
             items: [
               BottomNavigationBarItem(
-                  icon: Icon(Icons.more_horiz), title: Text('المزيد')),
+                  icon: Icon(Icons.more_horiz), title: Container()),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.date_range), title: Text('الحجوزات')),
+                  icon: Icon(Icons.date_range), title: Container()),
               // BottomNavigationBarItem(
               //     icon: Icon(Icons.favorite), title: Text('المفضلة')),
               // BottomNavigationBarItem(
@@ -142,12 +142,9 @@ class _MainHomeState extends State<MainHome> {
               //     title: Text('المشتريات')),
 
               BottomNavigationBarItem(
-                  icon: Icon(Icons.menu),
-                  title: Text(
-                    'الأقسام',
-                  )),
+                  icon: Icon(Icons.menu), title: Container()),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.home), title: Text('الرئيسية')),
+                  icon: Icon(Icons.home), title: Container()),
             ]),
         body: Directionality(
             textDirection: TextDirection.rtl,

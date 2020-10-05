@@ -6,6 +6,7 @@ import 'package:qutub_clinet/FCM/fcmConfig.dart';
 import 'package:qutub_clinet/models/productModel.dart';
 import 'package:qutub_clinet/models/reservation_model.dart';
 import 'package:qutub_clinet/models/vendorModel.dart';
+import 'package:qutub_clinet/ui/Home/Order/payment3.dart';
 import 'package:qutub_clinet/ui/colors.dart';
 import 'package:qutub_clinet/ui/widgets/customButton.dart';
 import 'package:qutub_clinet/ui/widgets/snackBarAndDialog.dart';
@@ -121,13 +122,14 @@ class _NewCheckoutState extends State<NewCheckout> {
   var noteController = TextEditingController();
 
   String selectedDate;
-  String selectedTime;
+  String selectedTime = "";
   ReservationModel reservationModel;
   var checkoutKey = GlobalKey<ScaffoldState>();
   String timePeroid = "AM";
 
   @override
   Widget build(BuildContext context) {
+    print("Vendor:${widget.vendorModel.imgPath}");
     return Scaffold(
       key: checkoutKey,
       backgroundColor: MyColor.custGrey2,
@@ -197,45 +199,46 @@ class _NewCheckoutState extends State<NewCheckout> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Container(
-                              width: 150,
-                              height: 50,
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'الوقت',
-                                    style:
-                                        TextStyle(color: MyColor.customColor),
-                                  ),
-                                  SizedBox(
-                                    width: 15,
-                                  ),
-                                  Expanded(
-                                    child: CustomButton(
-                                      backgroundColor: MyColor.whiteColor,
-                                      btnPressed: () {
-                                        DatePicker.showTime12hPicker(context,
-                                            onConfirm: (dt) {
-                                          final f =
-                                              new intl.DateFormat().add_jm();
-                                          String s = f.format(dt).split(" ")[0];
-                                          print(s);
-                                          selectedTime = s;
-                                          setState(() {});
-                                        });
-                                      },
-                                      textColor: MyColor.customColor,
-                                      txt: (selectedTime == null)
-                                          ? new intl.DateFormat()
-                                              .add_jm()
-                                              .format(DateTime.now())
-                                              .split(" ")[0]
-                                          : selectedTime,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            // Container(
+                            //   width: 150,
+                            //   height: 50,
+                            //   child: Row(
+                            //     children: [
+                            //       Text(
+                            //         'الوقت',
+                            //         style:
+                            //             TextStyle(color: MyColor.customColor),
+                            //       ),
+                            //       SizedBox(
+                            //         width: 15,
+                            //       ),
+                            //       Expanded(
+                            //         child: CustomButton(
+                            //           backgroundColor: MyColor.whiteColor,
+                            //           btnPressed: () {
+                            //             DatePicker.showTime12hPicker(context,
+                            //                 onConfirm: (dt) {
+                            //               final f =
+                            //                   new intl.DateFormat().add_jm();
+                            //               String s = f.format(dt).split(" ")[0];
+                            //               print(s);
+                            //               selectedTime = s;
+                            //               setState(() {});
+                            //             });
+                            //           },
+                            //           textColor: MyColor.customColor,
+                            //           txt: (selectedTime == null)
+                            //               ? new intl.DateFormat()
+                            //                   .add_jm()
+                            //                   .format(DateTime.now())
+                            //                   .split(" ")[0]
+                            //               : selectedTime,
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+
                             Card(
                               color: MyColor.customColor,
                               child: Padding(
@@ -285,18 +288,19 @@ class _NewCheckoutState extends State<NewCheckout> {
                                   msg: 'قم بتحديد التاريخ');
                               return;
                             }
-                            if (selectedTime == null) {
-                              showSnackbarError(
-                                  scaffoldKey: checkoutKey,
-                                  msg: 'قم بتحديد الوقت');
-                              return;
-                            }
+                            // if (selectedTime == null) {
+                            //   showSnackbarError(
+                            //       scaffoldKey: checkoutKey,
+                            //       msg: 'قم بتحديد الوقت');
+                            //   return;
+                            // }
 
                             print("SecondTotalPrice:$total");
                             reservationModel = ReservationModel(
                                 clientID: FirebaseAuth.instance.currentUser.uid,
                                 notes: "",
                                 paymentMethod: "",
+                                vendorImgPath: widget.vendorModel.imgPath,
                                 selectedDate: selectedDate,
                                 selectedTime: selectedTime + " " + timePeroid,
                                 vendorName: widget.vendorModel.name,
@@ -327,10 +331,10 @@ class _NewCheckoutState extends State<NewCheckout> {
                               // await FlutterEmailSender.send(email);
                               sendDashboardNotification();
                               dismissDialog(context);
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                              Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (ctx) => Payment3()));
                             }).catchError((e) {
                               dismissDialog(context);
                               showSnackbarError(
@@ -343,7 +347,7 @@ class _NewCheckoutState extends State<NewCheckout> {
                               borderRadius: BorderRadius.circular(20)),
                           color: Colors.white,
                           textColor: MyColor.customColor,
-                          child: Text('اطلب الأن'),
+                          child: Text('احجز الأن'),
                         ),
                       ),
                       Expanded(

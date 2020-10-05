@@ -67,20 +67,8 @@ class CategoryProducts extends StatelessWidget {
               Navigator.pop(context);
             }),
         backgroundColor: MyColor.whiteColor,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          textDirection: TextDirection.rtl,
-          children: <Widget>[
-            Text(
-              "معرض صور",
-              style: TextStyle(color: MyColor.customColor),
-            ),
-            SizedBox(
-              width: 15,
-            ),
-            Text(vendorModel.name, style: TextStyle(color: MyColor.customColor))
-          ],
-        ),
+        title: Text(vendorModel.name,
+            style: TextStyle(color: MyColor.customColor)),
         centerTitle: true,
       ),
       body: Directionality(
@@ -140,22 +128,22 @@ class CategoryProducts extends StatelessWidget {
                               SizedBox(
                                 height: 10,
                               ),
-                              Container( 
+                              Container(
                                 width: 150,
-                                child: RaisedButton(onPressed: (){
-                                       Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (ctx) => 
-                                                      Reservation(vendorModel)));
-                                },
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:BorderRadius.circular(30),
-                                  
-                                ),
-                                color: Colors.white,
-                                textColor: MyColor.customColor,
-                                child: Text('حجز الخدمة'),
+                                child: RaisedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (ctx) =>
+                                                Reservation(vendorModel)));
+                                  },
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  color: Colors.white,
+                                  textColor: MyColor.customColor,
+                                  child: Text('حجز الخدمة'),
                                 ),
                               )
                               // Row(
@@ -167,7 +155,7 @@ class CategoryProducts extends StatelessWidget {
                               //           Navigator.push(
                               //               context,
                               //               MaterialPageRoute(
-                              //                   builder: (ctx) => 
+                              //                   builder: (ctx) =>
                               //                       Reservation(vendorModel)));
                               //         },
                               //         textColor: Colors.white,
@@ -193,7 +181,6 @@ class CategoryProducts extends StatelessWidget {
                               //     // ),
                               //   ],
                               // )
-                         
                             ],
                           );
                 }

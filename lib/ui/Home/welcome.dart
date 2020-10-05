@@ -29,68 +29,61 @@ class _WelcomeState extends State<Welcome> {
             child: Column(
           children: [
             ClipPath(
-                clipper: BezierClipper(),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: MyColor.custGrey2,
-                  ),
-                  padding: EdgeInsets.all(10),
-                  height: MediaQuery.of(context).size.height / 3 + 20,
-                  width: double.infinity,
-                  child: Column(
-                    children: [
-                      Text(
-                        "Gladness",
-                        style: TextStyle(
-              fontFamily: 'italy',
-              fontSize: 40,
-              color: MyColor.customColor),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        "أول منصة عربية الكترونية تهتم بترتيبات مناسباتك على اكمل وجه بكل سهولة و يسر \"قلادنس \" تسعى لتجمع مع عدد من مقدمي الخدمات التي تحتاجها لترتيب مناسباتك",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-              fontFamily: 'ar',
-              fontSize: 17,
-              color: MyColor.customColor),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-            IconButton(
-                icon: Icon(
-                  Icons.list,
-                  color: MyColor.customColor,
-                  size: 30,
-                  textDirection: TextDirection.ltr,
+              clipper: BezierClipper(),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: MyColor.custGrey2,
                 ),
-                onPressed: () {
-                  widget.homeKey.currentState.openEndDrawer();
-                }),
-            RaisedButton(
-              onPressed: () {
-                bottomNavProvider.onTapClick(1);
-              },
-              color: MyColor.customColor,
-              textColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadiusDirectional.circular(15)),
-              child: Text('عرض الكل'),
-            )
-                        ],
-                      )
-                    ],
-                  ),
+                padding: EdgeInsets.all(10),
+                height: MediaQuery.of(context).size.height / 3 + 40,
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    Text(
+                      "Gladness",
+                      style: TextStyle(
+                          fontFamily: 'italy',
+                          fontSize: 30,
+                          color: MyColor.customColor),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "أول منصة عربية الكترونية تهتم بترتيبات مناسباتك على اكمل وجه بكل سهولة و يسر \"قلادنس \" تسعى لتجمع مع عدد من مقدمي الخدمات التي تحتاجها لترتيب مناسباتك",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'ar',
+                          fontSize: 12,
+                          color: MyColor.customColor),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      textDirection: TextDirection.ltr,
+                      //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        RaisedButton(
+                          onPressed: () {
+                            bottomNavProvider.onTapClick(1);
+                          },
+                          color: MyColor.customColor,
+                          textColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(15)),
+                          child: Text('عرض الكل'),
+                        )
+                      ],
+                    )
+                  ],
                 ),
               ),
-              SizedBox(height: 5,),
+            ),
+            SizedBox(
+              height: 5,
+            ),
             Expanded(
                 child: Container(
               padding: EdgeInsets.all(10),

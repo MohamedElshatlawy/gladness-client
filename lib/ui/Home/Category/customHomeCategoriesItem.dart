@@ -46,24 +46,21 @@ class CategoryItem extends StatelessWidget {
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.cover,
-                               ),
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                        placeholder: (context, url) =>
-                            Container(
-                              width: 100,
-                              height: 100,
-                              child: Center(child: CircularProgressIndicator())),
+                        placeholder: (context, url) => Container(
+                            width: 100,
+                            height: 100,
+                            child: Center(child: CircularProgressIndicator())),
                         errorWidget: (context, url, error) => Icon(Icons.error),
-                      )
-                      
-                      )),
+                      ))),
               Expanded(
                   child: Center(
                 child: Text(
-                  'اسم الفئة: ' + categoryModel.name,
+                  categoryModel.name,
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
