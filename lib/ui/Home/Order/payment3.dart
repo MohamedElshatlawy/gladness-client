@@ -6,6 +6,8 @@ import 'package:flutter_svg/parser.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:qutub_clinet/ui/colors.dart';
 
+import '../../../Locale/appLocalization.dart';
+
 class Payment3 extends StatefulWidget {
   @override
   _Payment3State createState() => _Payment3State();
@@ -73,6 +75,8 @@ class _Payment3State extends State<Payment3> {
 
   @override
   Widget build(BuildContext context) {
+           var local = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: MyColor.custGrey2,
       body: Column(
@@ -103,6 +107,8 @@ class _Payment3State extends State<Payment3> {
                   height: 10,
                 ),
                 Text(
+                  (local.locale.countryCode=="en")?
+                  "Booking Sunccessfully Done":
                   'تمت عملية الدفع بنجاح',
                   style: TextStyle(color: MyColor.customColor),
                 ),
@@ -126,7 +132,7 @@ class _Payment3State extends State<Payment3> {
 
                       Navigator.pop(context);
                     },
-                    child: Text('مواصلة التسوق'),
+                    child: Text(local.translate('cont_shopping')),
                   ),
                 ),
               ],

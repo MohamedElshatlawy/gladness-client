@@ -2,23 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSContactsUsageDescription</key>
-	<string>Access contacts</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>Access Calendar</string>
-
-	<key>NSAppleMusicUsageDescription</key>
-	<string>Access Music</string>
-
-	<key>NSMotionUsageDescription</key>
-	<string>Access Motion</string>
-
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Access Speech</string>
-
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Access Location</string>
-
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -50,12 +33,24 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Access Music</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Access Calendar</string>
 	<key>NSCameraUsageDescription</key>
 	<string>NeedToUploadImage</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Access contacts</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Access Location</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>NeedToUploadImage</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Access Motion</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>NeedToUploadImage</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Access Speech</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

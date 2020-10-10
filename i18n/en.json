@@ -1,4 +1,44 @@
 {
-    "title": "Hello!",
-    "Message": "This is English"
+    "home_tab":"Home",
+    "cat_tab":"Categories",
+    "resv_tab":"Reservations",
+    "more_tab":"More",
+    "Error":"Error",
+    "no_internet":"No internet connection",
+
+    "home_desc":"The first Arab electronic platform that takes care of arranging your events to the fullest with ease and pleasure.\"Qladens \"seeks to gather with a number of service providers you need to arrange your events.",
+    "home_viewall_btn":"View All",
+
+    "cat_not_found":"No Categories Found",
+    "vendors_not_found":"No Vendors Found",
+    "product_not_found":"No Products Found",
+    "no_img":"No images found",
+    "book_service":"Book a service",
+    "no_price_list":"There is no price list",
+    "price_list":"Price list",
+    "name":"Name",
+    "price":"Price",
+    "choose":"Choose",
+    "cat_name":"Category name",
+    "services":"Services",
+    "date_time":"Date and time",
+    "book_now":"Book Now",
+    "sr":"SR",
+    "cont_shopping":"Continue Shopping",
+    "en":"English",
+    "ar":"Arabic",
+    "lang":"Language",
+    "msg":"Send Message",
+    "about":"About us",
+    "contact":"Contact us",
+    "logout":"Logout",
+
+    "contact_num":"Contact Numbers",
+    "contact_us":"Contact Us",
+    "phone":"Phone number",
+    "msg_content":"Message",
+    "send":"Send",
+    "vendor_name":"Vendor name",
+    "details":"Details"
+                     
 }

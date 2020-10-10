@@ -34,61 +34,26 @@ class _MainHomeState extends State<MainHome> {
   var homeKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    
     var bottomNavProvider = Provider.of<BottomNavProvider>(context);
-    var userProvider = Provider.of<UserProvider>(context);
-    var cartCountProvider = Provider.of<CartCounterProvider>(context);
+   
     var local = AppLocalizations.of(context);
-    print(local.locale.languageCode);
+
+    print(local.translate('home_tab'));
     return Scaffold(
         key: homeKey,
         backgroundColor: MyColor.customGreyColor,
-        appBar: (bottomNavProvider.selectedIndex == 3)
+        appBar: (bottomNavProvider.selectedIndex == 0)
             ? null
             : AppBar(
                 backgroundColor: MyColor.whiteColor,
                 elevation: 5,
                 title: Text(
-                  bottomNavProvider.getTabName(),
+                  bottomNavProvider.getTabName(local)??'',
                   style: TextStyle(color: MyColor.customColor),
                 ),
                 centerTitle: true,
-                // actions: [
-                //   IconButton(
-                //       icon: Icon(
-                //         Icons.menu,
-                //         color: MyColor.customColor,
-                //       ),
-                //       onPressed: () {
-                //         //   homeKey.currentState.openEndDrawer();
-                //       })
-                // ],
-                // leading: InkWell(
-                //   onTap: () {
-                //     Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //             builder: (ctx) => Profile(
-                //                   userModel: userProvider.userModel,
-                //                 )));
-                //   },
-                //   child: Container(
-                //       margin: EdgeInsets.only(left: 10, top: 5, bottom: 5),
-                //       decoration: BoxDecoration(
-                //           shape: BoxShape.circle,
-                //           border: Border.all(color: MyColor.customColor)),
-                //       child: ClipOval(
-                //           child: (userProvider.userModel == null ||
-                //                   userProvider.userModel.profileImg == null)
-                //               ? Image.asset(
-                //                   'assets/profile.png',
-                //                   color: MyColor.customColor,
-                //                   scale: 4,
-                //                 )
-                //               : Image.network(
-                //                   userProvider.userModel.profileImg,
-                //                   fit: BoxFit.cover,
-                //                 ))),
-                // ),
+               
               ),
         // endDrawer: MyDrawer(),
         bottomNavigationBar: BottomNavigationBar(
@@ -102,68 +67,36 @@ class _MainHomeState extends State<MainHome> {
             },
             selectedItemColor: MyColor.customColor,
             items: [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.more_horiz), title: Container()),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.date_range), title: Container()),
-              // BottomNavigationBarItem(
-              //     icon: Icon(Icons.favorite), title: Text('المفضلة')),
-              // BottomNavigationBarItem(
-              //     icon: Container(
-              //       width: 30,
-              //       height: 22,
-              //       child: Stack(
-              //         fit: StackFit.expand,
-              //         children: <Widget>[
-              //           Icon(Icons.shopping_cart),
-              //           (cartCountProvider.count==0)?
-              //           Container():
-              //           Align(
-              //             alignment: Alignment.topRight,
-              //             child: Container(
-              //               width: 13,
-              //               height: 13,
-              //               decoration: BoxDecoration(
-              //                 color: Colors.red,
-              //                 shape: BoxShape.circle,
-              //               ),
-              //               child: Center(
-              //                 child: Text(
-              //                   cartCountProvider.count.toString(),
-              //                   style:
-              //                       TextStyle(color: Colors.white, fontSize: 9),
-              //                 ),
-              //               ),
-              //             ),
-              //           )
-              //         ],
-              //       ),
-              //     ),
-              //     title: Text('المشتريات')),
-
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.menu), title: Container()),
+             
+              
               BottomNavigationBarItem(
                   icon: Icon(Icons.home), title: Container()),
+                  BottomNavigationBarItem(
+                  icon: Icon(Icons.menu), title: Container()),
+                   BottomNavigationBarItem(
+                  icon: Icon(Icons.date_range), title: Container()),
+                   BottomNavigationBarItem(
+                  icon: Icon(Icons.more_horiz), title: Container()),
+             
+            
+
             ]),
-        body: Directionality(
-            textDirection: TextDirection.rtl,
-            child: Container(
-                margin: (bottomNavProvider.selectedIndex == 3)
-                    ? null
-                    : EdgeInsets.all(10),
-                child: bottomNavProvider.selectedIndex == 3
-                    ? Welcome(
-                        homeKey: homeKey,
-                      )
+        body: Container(
+            margin: (bottomNavProvider.selectedIndex == 0)
+                ? null
+                : EdgeInsets.all(10),
+            child: bottomNavProvider.selectedIndex == 0
+                ? Welcome(
+                    homeKey: homeKey,
+                  )
+                : (bottomNavProvider.selectedIndex == 1)
+                    ? HomeTab() 
+                    // : bottomNavProvider.selectedIndex == 1
+                    //     ? FavouriteTab()
+                    //     : bottomNavProvider.selectedIndex == 2
+                    //         ? CartTab()
                     : (bottomNavProvider.selectedIndex == 2)
-                        ? HomeTab()
-                        // : bottomNavProvider.selectedIndex == 1
-                        //     ? FavouriteTab()
-                        //     : bottomNavProvider.selectedIndex == 2
-                        //         ? CartTab()
-                        : (bottomNavProvider.selectedIndex == 1)
-                            ? OrderTab()
-                            : More())));
+                        ? OrderTab()
+                        : More()));
   }
 }

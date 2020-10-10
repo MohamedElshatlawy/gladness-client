@@ -7,6 +7,7 @@ import 'package:qutub_clinet/Providers/bottomNavProvider.dart';
 import 'package:qutub_clinet/models/categoryModel.dart';
 import 'package:qutub_clinet/ui/colors.dart';
 
+import '../../Locale/appLocalization.dart';
 import 'Category/customHomeCategoriesItem.dart';
 import 'myCliper.dart';
 
@@ -22,6 +23,8 @@ class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
     var bottomNavProvider = Provider.of<BottomNavProvider>(context);
+        var local = AppLocalizations.of(context);
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: MyColor.customGreyColor,
@@ -50,8 +53,8 @@ class _WelcomeState extends State<Welcome> {
                       height: 20,
                     ),
                     Text(
-                      "أول منصة عربية الكترونية تهتم بترتيبات مناسباتك على اكمل وجه بكل سهولة و يسر \"قلادنس \" تسعى لتجمع مع عدد من مقدمي الخدمات التي تحتاجها لترتيب مناسباتك",
-                      textAlign: TextAlign.center,
+                      local.translate('home_desc'),
+                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'ar',
                           fontSize: 12,
@@ -61,7 +64,9 @@ class _WelcomeState extends State<Welcome> {
                       height: 20,
                     ),
                     Row(
-                      textDirection: TextDirection.ltr,
+                     textDirection: (local.locale.languageCode=="en")?
+                     TextDirection.rtl:TextDirection.ltr
+                     ,
                       //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         RaisedButton(
@@ -73,7 +78,7 @@ class _WelcomeState extends State<Welcome> {
                           shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadiusDirectional.circular(15)),
-                          child: Text('عرض الكل'),
+                          child: Text(local.translate("home_viewall_btn")),
                         )
                       ],
                     )

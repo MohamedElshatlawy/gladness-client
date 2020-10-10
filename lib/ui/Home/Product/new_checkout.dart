@@ -14,6 +14,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 import 'package:intl/intl.dart' as intl;
 import 'package:toggle_switch/toggle_switch.dart';
+import '../../../Locale/appLocalization.dart';
 import 'calender_dialog.dart';
 
 class NewCheckout extends StatefulWidget {
@@ -29,46 +30,7 @@ class NewCheckout extends StatefulWidget {
 class _NewCheckoutState extends State<NewCheckout> {
   int total = 0;
 
-  String replaceFarsiNumber(String s1) {
-    const english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-    const farsi = [
-      '/٠/g',
-      '/١/g',
-      '/٢/g',
-      '/٣/g',
-      '/٤/g',
-      '/٥/g',
-      '/٦/g',
-      ' /٧/g',
-      '/٨/g',
-      '/٩/g'
-    ];
-    Map<String, String> farsiMap = {
-      '۰': '0',
-      '۱': '1',
-      '۲': '2',
-      '۳': '3',
-      '٤': "4",
-      '۵': "5",
-      '٦': "6",
-      '۷': "7",
-      '۸': "8",
-      '۹': "9"
-    };
-    // String myStr="";
-    // for(int i=0;i<input.length;i++){
-    //   print(input[i]);
-    //   if(farsi.contains(input[i])){
-    //     print(true);
-    //     myStr+=farsiMap[input[i]];
-    //   }else{
-    //     print(false);
-    //      myStr+=input[i];
-    //   }
-    // }
-    //return myStr;
-  }
-
+  
   Map<String, dynamic> selectedPriceByUser = {};
   List<Widget> getProductsWidgets() {
     total = 0;
@@ -130,6 +92,7 @@ class _NewCheckoutState extends State<NewCheckout> {
   @override
   Widget build(BuildContext context) {
     print("Vendor:${widget.vendorModel.imgPath}");
+       var local = AppLocalizations.of(context);
     return Scaffold(
       key: checkoutKey,
       backgroundColor: MyColor.custGrey2,
@@ -145,225 +108,230 @@ class _NewCheckoutState extends State<NewCheckout> {
             }),
         backgroundColor: MyColor.whiteColor,
         title: Text(
-          "اسم الفئة",
+        widget.model.categoryName,
           style: TextStyle(color: MyColor.customColor),
         ),
         centerTitle: true,
       ),
-      body: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Container(
-            margin: EdgeInsets.all(10),
-            child: Column(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
+      body: Container(
+        margin: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            Text('${widget.vendorModel.name}',
-                                style: TextStyle(fontSize: 17)),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Row(
-                          children: [
-                            Text('الخدمات', style: TextStyle()),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        ...getProductsWidgets(),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Row(
-                          children: [
-                            Text('التاريخ والوقت', style: TextStyle()),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                            width: MediaQuery.of(context).size.width,
-                            child: CalenderDialog(
-                                selectedDate, widget.vendorModel, this)),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            // Container(
-                            //   width: 150,
-                            //   height: 50,
-                            //   child: Row(
-                            //     children: [
-                            //       Text(
-                            //         'الوقت',
-                            //         style:
-                            //             TextStyle(color: MyColor.customColor),
-                            //       ),
-                            //       SizedBox(
-                            //         width: 15,
-                            //       ),
-                            //       Expanded(
-                            //         child: CustomButton(
-                            //           backgroundColor: MyColor.whiteColor,
-                            //           btnPressed: () {
-                            //             DatePicker.showTime12hPicker(context,
-                            //                 onConfirm: (dt) {
-                            //               final f =
-                            //                   new intl.DateFormat().add_jm();
-                            //               String s = f.format(dt).split(" ")[0];
-                            //               print(s);
-                            //               selectedTime = s;
-                            //               setState(() {});
-                            //             });
-                            //           },
-                            //           textColor: MyColor.customColor,
-                            //           txt: (selectedTime == null)
-                            //               ? new intl.DateFormat()
-                            //                   .add_jm()
-                            //                   .format(DateTime.now())
-                            //                   .split(" ")[0]
-                            //               : selectedTime,
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-
-                            Card(
-                              color: MyColor.customColor,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ToggleSwitch(
-                                  cornerRadius: 20.0,
-                                  activeBgColor: Colors.white,
-                                  activeFgColor: MyColor.customColor,
-                                  inactiveBgColor: MyColor.customColor,
-                                  inactiveFgColor: Colors.white,
-                                  labels: ['AM', 'PM'],
-                                  onToggle: (index) {
-                                    print('switched to: $index');
-                                    if (index == 0) {
-                                      timePeroid = "AM";
-                                    } else {
-                                      timePeroid = "PM";
-                                    }
-                                    print(timePeroid);
-                                    // setState(() {});
-                                  },
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                        Text('${widget.vendorModel.name}',
+                            style: TextStyle(fontSize: 17)),
                       ],
                     ),
-                  ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      children: [
+                        Text(local.translate('services'), style: TextStyle()),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ...getProductsWidgets(),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      children: [
+                        Text(local.translate('date_time'), style: TextStyle()),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: CalenderDialog(
+                            selectedDate, widget.vendorModel, this)),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        // Container(
+                        //   width: 150,
+                        //   height: 50,
+                        //   child: Row(
+                        //     children: [
+                        //       Text(
+                        //         'الوقت',
+                        //         style:
+                        //             TextStyle(color: MyColor.customColor),
+                        //       ),
+                        //       SizedBox(
+                        //         width: 15,
+                        //       ),
+                        //       Expanded(
+                        //         child: CustomButton(
+                        //           backgroundColor: MyColor.whiteColor,
+                        //           btnPressed: () {
+                        //             DatePicker.showTime12hPicker(context,
+                        //                 onConfirm: (dt) {
+                        //               final f =
+                        //                   new intl.DateFormat().add_jm();
+                        //               String s = f.format(dt).split(" ")[0];
+                        //               print(s);
+                        //               selectedTime = s;
+                        //               setState(() {});
+                        //             });
+                        //           },
+                        //           textColor: MyColor.customColor,
+                        //           txt: (selectedTime == null)
+                        //               ? new intl.DateFormat()
+                        //                   .add_jm()
+                        //                   .format(DateTime.now())
+                        //                   .split(" ")[0]
+                        //               : selectedTime,
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+
+                        Card(
+                          color: MyColor.customColor,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ToggleSwitch(
+                              cornerRadius: 20.0,
+                              activeBgColor: Colors.white,
+                              activeFgColor: MyColor.customColor,
+                              inactiveBgColor: MyColor.customColor,
+                              inactiveFgColor: Colors.white,
+                              labels: ['AM', 'PM'],
+                              onToggle: (index) {
+                                print('switched to: $index');
+                                if (index == 0) {
+                                  timePeroid = "AM";
+                                } else {
+                                  timePeroid = "PM";
+                                }
+                                print(timePeroid);
+                                // setState(() {});
+                              },
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  color: MyColor.customColor,
-                  padding: EdgeInsets.all(6),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 100,
-                        child: RaisedButton(
-                          onPressed: () async {
-                            // print("dATE:" + selectedDate);
-                            if (selectedDate == null) {
-                              showSnackbarError(
-                                  scaffoldKey: checkoutKey,
-                                  msg: 'قم بتحديد التاريخ');
-                              return;
-                            }
-                            // if (selectedTime == null) {
-                            //   showSnackbarError(
-                            //       scaffoldKey: checkoutKey,
-                            //       msg: 'قم بتحديد الوقت');
-                            //   return;
-                            // }
-
-                            print("SecondTotalPrice:$total");
-                            reservationModel = ReservationModel(
-                                clientID: FirebaseAuth.instance.currentUser.uid,
-                                notes: "",
-                                paymentMethod: "",
-                                vendorImgPath: widget.vendorModel.imgPath,
-                                selectedDate: selectedDate,
-                                selectedTime: selectedTime + " " + timePeroid,
-                                vendorName: widget.vendorModel.name,
-                                totalPrice: total.toString(),
-                                selectedItems: selectedPriceByUser);
-                            showMyDialog(
-                                context: context, msg: 'جاري ارسال الطلب');
-                            await FirebaseFirestore.instance
-                                .collection("reservations")
-                                .doc()
-                                .set(reservationModel.toMap())
-                                .then((value) async {
-                              // final Email email = Email(
-                              //   body: 'Hey! \n Your order summary:\n ${widget.selectedPrices} \n Total:$total',
-                              //   subject: 'Your order from GLADNESS',
-                              //   recipients: ['elshatlawey90@gmail.com'],
-                              //   cc: [
-                              //     "elshatlawey90@gmail.com"
-                              //   ],
-                              //   bcc: [
-                              //     "elshatlawey90@gmail.com"
-                              //   ],
-                              //   //attachmentPaths: ['/path/to/attachment.zip'],
-                              //   isHTML: false,
-
-                              // );
-
-                              // await FlutterEmailSender.send(email);
-                              sendDashboardNotification();
-                              dismissDialog(context);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (ctx) => Payment3()));
-                            }).catchError((e) {
-                              dismissDialog(context);
-                              showSnackbarError(
-                                  msg: 'حدث حطأ في ارسال الطلب حاول مرة اخرى',
-                                  scaffoldKey: checkoutKey);
-                              print("ErrorInsertReserv:$e");
-                            });
-                          },
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          color: Colors.white,
-                          textColor: MyColor.customColor,
-                          child: Text('احجز الأن'),
-                        ),
-                      ),
-                      Expanded(
-                          child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          '$total ريال',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                      ))
-                    ],
-                  ),
-                )
-              ],
+              ),
             ),
-          )),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              color: MyColor.customColor,
+              padding: EdgeInsets.all(6),
+              child: Row(
+                children: [
+                  Container(
+                    width: 100,
+                    child: RaisedButton(
+                      onPressed: () async {
+                        // print("dATE:" + selectedDate);
+                        if (selectedDate == null) {
+                          showSnackbarError(
+                              scaffoldKey: checkoutKey,
+                              msg: 
+                              (local.locale.languageCode=="en")?"Choose a date":
+                              'قم بتحديد التاريخ');
+                          return;
+                        }
+                        // if (selectedTime == null) {
+                        //   showSnackbarError(
+                        //       scaffoldKey: checkoutKey,
+                        //       msg: 'قم بتحديد الوقت');
+                        //   return;
+                        // }
+
+                        print("SecondTotalPrice:$total");
+                        reservationModel = ReservationModel(
+                            clientID: FirebaseAuth.instance.currentUser.uid,
+                            notes: "",
+                            paymentMethod: "",
+                            vendorImgPath: widget.vendorModel.imgPath,
+                            selectedDate: selectedDate,
+                            selectedTime: selectedTime + " " + timePeroid,
+                            vendorName: widget.vendorModel.name,
+                            totalPrice: total.toString(),
+                            selectedItems: selectedPriceByUser);
+                        showMyDialog(
+                            context: context, msg:
+                            (local.locale.languageCode=="en")?"Sending order":
+                             'جاري ارسال الطلب');
+                        await FirebaseFirestore.instance
+                            .collection("reservations")
+                            .doc()
+                            .set(reservationModel.toMap())
+                            .then((value) async {
+                          // final Email email = Email(
+                          //   body: 'Hey! \n Your order summary:\n ${widget.selectedPrices} \n Total:$total',
+                          //   subject: 'Your order from GLADNESS',
+                          //   recipients: ['elshatlawey90@gmail.com'],
+                          //   cc: [
+                          //     "elshatlawey90@gmail.com"
+                          //   ],
+                          //   bcc: [
+                          //     "elshatlawey90@gmail.com"
+                          //   ],
+                          //   //attachmentPaths: ['/path/to/attachment.zip'],
+                          //   isHTML: false,
+
+                          // );
+
+                          // await FlutterEmailSender.send(email);
+                          sendDashboardNotification();
+                          dismissDialog(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => Payment3()));
+                        }).catchError((e) {
+                          dismissDialog(context);
+                          showSnackbarError(
+
+                              msg: 
+                              (local.locale.languageCode=="en")?"Error Connection":
+                              'حدث حطأ في ارسال الطلب حاول مرة اخرى',
+                              scaffoldKey: checkoutKey);
+                          print("ErrorInsertReserv:$e");
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      color: Colors.white,
+                      textColor: MyColor.customColor,
+                      child: Text(local.translate('book_now')),
+                    ),
+                  ),
+                  Expanded(
+                      child: Align(
+                    alignment:(local.locale.languageCode=="en")?Alignment.centerRight: Alignment.centerLeft,
+                    child: Text(
+                      '$total ${local.translate('sr')}',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                  ))
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

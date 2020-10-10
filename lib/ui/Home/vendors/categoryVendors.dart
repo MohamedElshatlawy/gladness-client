@@ -4,6 +4,7 @@ import 'package:qutub_clinet/API/CommonCollections.dart';
 import 'package:qutub_clinet/models/categoryModel.dart';
 import 'package:qutub_clinet/models/vendorModel.dart';
 
+import '../../../Locale/appLocalization.dart';
 import '../../colors.dart';
 import 'categoryVendorItem.dart';
 
@@ -13,6 +14,7 @@ class CategoryVendors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
    print('Ben');
+    var local = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: MyColor.customGreyColor,
@@ -32,52 +34,49 @@ class CategoryVendors extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Container(
-            margin: EdgeInsets.all(10),
-            child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection(MyCollections.vendors)
-                  .where('categoryID', isEqualTo: categoryModel.id)
-                  .snapshots(),
-              builder: (ctx, AsyncSnapshot<QuerySnapshot> snapSHot) {
-                if (snapSHot.hasError)
-                  return new Text('خطأ: ${snapSHot.error}');
-                switch (snapSHot.connectionState) {
-                  case ConnectionState.waiting:
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
+      body: Container(
+          margin: EdgeInsets.all(10),
+          child: StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance
+                .collection(MyCollections.vendors)
+                .where('categoryID', isEqualTo: categoryModel.id)
+                .snapshots(),
+            builder: (ctx, AsyncSnapshot<QuerySnapshot> snapSHot) {
+              if (snapSHot.hasError)
+                return new Text('${local.translate('Error')}: ${snapSHot.error}');
+              switch (snapSHot.connectionState) {
+                case ConnectionState.waiting:
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
 
-                  case ConnectionState.none:
-                    return Center(
-                      child: Text('لايوجد اتصال بالأنترنت'),
-                    );
-                  case ConnectionState.active:
+                case ConnectionState.none:
+                  return Center(
+                    child: Text(local.translate('no_internet')),
+                  );
+                case ConnectionState.active:
 
-                  case ConnectionState.done:
-                    return (snapSHot.data.docs.isEmpty)
-                        ? Center(
-                            child: Text('لا يوجد تجار'),
-                          )
-                        : ListView.separated(
-                            separatorBuilder: (ctx,index)=>SizedBox(height: 15,),
-                            itemCount: snapSHot.data.docs.length,
-                            itemBuilder: (ctx, index) {
-                              var vendorModel = VendorModel.fromJson(
-                                  id: snapSHot.data.docs[index].id, 
-                                  json: snapSHot.data.docs[index].data()); 
-                              return CategoryVendorItem(  
-                                index: index,
-                                vendorModel: vendorModel,
-                              );
-                            });
-                }
-                return Container();
-              },
-            )),
-      ),
+                case ConnectionState.done:
+                  return (snapSHot.data.docs.isEmpty)
+                      ? Center(
+                          child: Text(local.translate('vendors_not_found')),
+                        )
+                      : ListView.separated(
+                          separatorBuilder: (ctx,index)=>SizedBox(height: 15,),
+                          itemCount: snapSHot.data.docs.length,
+                          itemBuilder: (ctx, index) {
+                            var vendorModel = VendorModel.fromJson(
+                                id: snapSHot.data.docs[index].id, 
+                                json: snapSHot.data.docs[index].data()); 
+                             return CategoryVendorItem(  
+                              index: index,
+                              vendorModel: vendorModel,
+                            );
+                          });
+              }
+              return Container();
+            },
+          )),
     );
   }
 }

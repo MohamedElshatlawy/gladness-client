@@ -10,6 +10,7 @@ import 'package:qutub_clinet/ui/Home/resev_tabs.dart/confResev.dart';
 import 'package:qutub_clinet/ui/Home/resev_tabs.dart/sentResev.dart';
 import 'package:qutub_clinet/ui/colors.dart';
 
+import '../../Locale/appLocalization.dart';
 import 'Order/orderListItem.dart';
 import 'resev_tabs.dart/rejectResev.dart';
 
@@ -33,6 +34,8 @@ class _OrderTabState extends State<OrderTab>
 
   @override
   Widget build(BuildContext context) {
+        var local = AppLocalizations.of(context);
+
     return Column(
       children: [
         Container(
@@ -46,13 +49,13 @@ class _OrderTabState extends State<OrderTab>
               unselectedLabelColor: Colors.grey,
               tabs: [
                 Tab(
-                  text: 'غير مؤكدة',
+                  text: (local.locale.languageCode=="en")?"Waiting":'غير مؤكدة',
                 ),
                 Tab(
-                  text: 'مؤكدة',
+                  text: (local.locale.languageCode=="en")?"Accepted": 'مؤكدة',
                 ),
                 Tab(
-                  text: 'ملغية',
+                  text:  (local.locale.languageCode=="en")?"Rejected":'ملغية',
                 ),
               ]),
         ),
@@ -60,7 +63,7 @@ class _OrderTabState extends State<OrderTab>
           height: 10,
         ),
         Expanded(
-            child: TabBarView(controller: tabController, children: [
+            child: TabBarView(controller: tabController, children: [ 
           SentReservations(),
           ConfirmReservations(),
           CancelReservations()

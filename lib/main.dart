@@ -25,11 +25,20 @@ Future<void> main() async {
       ChangeNotifierProvider.value(value: CartCounterProvider()),
       ChangeNotifierProvider.value(value: AddressProvider())
     ],
-    child: MaterialApp(
+    child: MyMaterial(),
+  ));
+}
+
+class MyMaterial extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var locProvider = Provider.of<LocalProvider>(context);
+
+    return MaterialApp(
       theme: ThemeData(
         fontFamily: 'ar',
       ),
-      home: Splash(),
+      locale: locProvider.appLocal,
       supportedLocales: [
         Locale('en', 'US'),
         Locale('ar', ''),
@@ -39,6 +48,7 @@ Future<void> main() async {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-    ),
-  ));
+      home: Splash(),
+    );
+  }
 }

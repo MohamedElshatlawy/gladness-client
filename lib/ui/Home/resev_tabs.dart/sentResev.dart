@@ -5,10 +5,13 @@ import 'package:qutub_clinet/Providers/userProvider.dart';
 import 'package:qutub_clinet/models/reservation_model.dart';
 import 'package:qutub_clinet/ui/Home/Order/orderListItem.dart';
 
+import '../../../Locale/appLocalization.dart';
+
 class SentReservations extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var userProvider = Provider.of<UserProvider>(context);
+        var local = AppLocalizations.of(context);
 
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
@@ -20,7 +23,7 @@ class SentReservations extends StatelessWidget {
       builder: (ctx, AsyncSnapshot<QuerySnapshot> snapSHot) {
         if (snapSHot.hasError) {
           print(snapSHot.error);
-          return new Text('خطأ: ${snapSHot.error}');
+          return new Text('${local.translate('Error')}: ${snapSHot.error}');
         }
         switch (snapSHot.connectionState) {
           case ConnectionState.waiting:
@@ -30,14 +33,14 @@ class SentReservations extends StatelessWidget {
 
           case ConnectionState.none:
             return Center(
-              child: Text('لايوجد اتصال بالأنترنت'),
+              child: Text(local.translate('no_internet')),
             );
           case ConnectionState.active:
 
           case ConnectionState.done:
             return (snapSHot.data.docs.isEmpty)
                 ? Center(
-                    child: Text('لا يوجد حجوزات'),
+                    child: Text((local.locale.languageCode=="en")?"No reservations":'لا يوجد حجوزات'),
                   )
                 : ListView.separated(
                     separatorBuilder: (ctx, index) => SizedBox(
@@ -48,7 +51,7 @@ class SentReservations extends StatelessWidget {
                       ReservationModel model = ReservationModel.fromJson(
                           id: snapSHot.data.docs[index].id,
                           json: snapSHot.data.docs[index].data());
-
+   
                       return OrderListItem(
                         index: snapSHot.data.docs.length - index,
                         orderModel: model,

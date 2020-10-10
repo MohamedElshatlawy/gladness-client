@@ -11,6 +11,9 @@ import 'package:qutub_clinet/ui/widgets/customButton.dart';
 import 'package:qutub_clinet/ui/widgets/customTextField.dart';
 import 'package:qutub_clinet/ui/widgets/snackBarAndDialog.dart';
 
+import '../../Locale/appLocalization.dart';
+import '../../Locale/localizationProvider.dart';
+
 class SendMsg extends StatelessWidget {
   var nameController = TextEditingController();
   var phoneController = TextEditingController();
@@ -21,13 +24,14 @@ class SendMsg extends StatelessWidget {
   Widget build(BuildContext context) {
     var userProvider = Provider.of<UserProvider>(context);
 
+    var local = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: MyColor.customGreyColor,
       key: msgKey,
       appBar: AppBar(
         backgroundColor: MyColor.whiteColor,
         title: Text(
-          'تواصل معنا',
+          local.translate('contact_us'),
           style: TextStyle(color: MyColor.customColor),
         ),
         centerTitle: true,
@@ -48,6 +52,7 @@ class SendMsg extends StatelessWidget {
             child: Column(
               children: [
                 Text(
+                  (local.locale.languageCode=="en")?"Thanks for contact us":
                   'شكرا لتواصلك معانا',
                   style: TextStyle(color: MyColor.customColor),
                 ),
@@ -57,7 +62,7 @@ class SendMsg extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'رقم الهاتف :',
+                      '${local.translate('phone')} :',
                       style: TextStyle(color: MyColor.customColor),
                     ),
                   ],
@@ -87,7 +92,7 @@ class SendMsg extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      ' الرسالة :',
+                      ' ${local.translate('msg_content')} :',
                       style: TextStyle(color: MyColor.customColor),
                     ),
                   ],
@@ -124,7 +129,9 @@ class SendMsg extends StatelessWidget {
                       if (phoneController.text.isEmpty ||
                           msgController.text.isEmpty) {
                         showSnackbarError(
-                            msg: 'ادخل البيانات كاملة', scaffoldKey: msgKey);
+                            msg: 
+                            (local.locale.countryCode=="en")?"Fill All fields":
+                            'ادخل البيانات كاملة', scaffoldKey: msgKey);
                         return;
                       }
                       var msgModel = MsgModel(
@@ -132,7 +139,9 @@ class SendMsg extends StatelessWidget {
                           msg: msgController.text,
                           name: userProvider.userModel.name,
                           phone: phoneController.text);
-                      showMyDialog(context: context, msg: 'جاري ارسال الرسالة');
+                      showMyDialog(context: context, msg: 
+                       (local.locale.countryCode=="en")?"Sending message":
+                      'جاري ارسال الرسالة');
                       await FirebaseFirestore.instance
                           .collection("messages")
                           .doc()
@@ -140,7 +149,9 @@ class SendMsg extends StatelessWidget {
                           .then((value) {
                         dismissDialog(context);
                         Fluttertoast.showToast(
-                            msg: "تم الأرسال بنجاح",
+                            msg: 
+                             (local.locale.countryCode=="en")?"Messega sent successfully":
+                            "تم الأرسال بنجاح",
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.CENTER,
                             timeInSecForIosWeb: 1,
@@ -156,7 +167,9 @@ class SendMsg extends StatelessWidget {
                       }).catchError((e) {
                         dismissDialog(context);
                         showSnackbarError(
-                            msg: 'حدث خطأ في الأرسال حاول مرة اخرى',
+                            msg: 
+                             (local.locale.countryCode=="en")?"Error Connection":
+                            'حدث خطأ في الأرسال حاول مرة اخرى',
                             scaffoldKey: msgKey);
                       });
                     },
@@ -165,7 +178,8 @@ class SendMsg extends StatelessWidget {
                     ),
                     color: MyColor.customColor,
                     textColor: Colors.white,
-                    child: Text('إرسال'),
+                    child: Text(
+                       local.translate('send')),
                   ),
                 )
               ],

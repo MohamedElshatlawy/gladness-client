@@ -1,25 +1,27 @@
 import 'package:flutter/foundation.dart';
 
+import '../Locale/appLocalization.dart';
+
 class BottomNavProvider extends ChangeNotifier {
-  int selectedIndex = 3;
+  int selectedIndex = 0;
 
   onTapClick(int index) {
     selectedIndex = index;
     notifyListeners();
   }
 
-  String getTabName() {
+  String getTabName(AppLocalizations local) {
     switch (selectedIndex) {
-      case 0:
-        return 'المزيد';
-      case 1:
-        return 'الحجوزات';
+      case 3:
+        return local.translate('more_tab');
+      case 2:
+        return local.translate('resv_tab');
       // case 2:
       //   return 'المشتريات';
-      case 2:
-        return 'الأقسام';
-      case 3:
-        return 'الرئيسية';
+      case 1:
+        return local.translate('cat_tab');
+      case 0:
+        return local.translate('home_tab');
     }
     return '';
   }

@@ -6,6 +6,7 @@ import 'package:qutub_clinet/models/orderModel.dart';
 import 'package:qutub_clinet/models/reservation_model.dart';
 import 'package:qutub_clinet/ui/Home/Order/orderDetails.dart';
 
+import '../../../Locale/appLocalization.dart';
 import '../../colors.dart';
 import 'new_order_details.dart';
 
@@ -16,8 +17,9 @@ class OrderListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //getAsciiID();
+     var local = AppLocalizations.of(context);
     return InkWell(
-      onTap: () {
+      onTap: () { 
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -31,7 +33,7 @@ class OrderListItem extends StatelessWidget {
           color: MyColor.whiteColor,
         ),
         child: Row(
-          textDirection: TextDirection.rtl,
+       
           children: <Widget>[
             Expanded(
                 flex: 2,
@@ -41,7 +43,7 @@ class OrderListItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'اسم التاجر : ${orderModel.vendorName}',
+                        '${local.translate('vendor_name')} : ${orderModel.vendorName}',
                         style: TextStyle(color: MyColor.customColor),
                       ),
                       RaisedButton(
@@ -63,7 +65,7 @@ class OrderListItem extends StatelessWidget {
                             : MyColor.whiteColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)),
-                        child: Text('التفاصيل'),
+                        child: Text(local.translate('details')),
                       )
                     ],
                   ),

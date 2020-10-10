@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:qutub_clinet/API/CommonCollections.dart';
 import 'package:qutub_clinet/models/categoryModel.dart';
 
+import '../../Locale/appLocalization.dart';
 import 'Category/customHomeCategoriesItem.dart';
 
 class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+        var local = AppLocalizations.of(context);
+
      return StreamBuilder<QuerySnapshot>(
         stream:
     FirebaseFirestore.instance.collection(MyCollections.categories).snapshots(),
         builder: (ctx, AsyncSnapshot<QuerySnapshot> snapSHot) {
-    if (snapSHot.hasError) return new Text('خطأ: ${snapSHot.error}');
+    if (snapSHot.hasError) return new Text('${local.translate('Error')}: ${snapSHot.error}');
     switch (snapSHot.connectionState) {
       case ConnectionState.waiting:
         return Center(
@@ -21,14 +24,14 @@ class HomeTab extends StatelessWidget {
 
       case ConnectionState.none:
         return Center(
-          child: Text('لايوجد اتصال بالأنترنت'),
+          child: Text(local.translate('no_internet')),
         );
       case ConnectionState.active:
 
       case ConnectionState.done:
         return (snapSHot.data.docs.isEmpty)
             ? Center(
-                child: Text('لا يوجد أقسام'),
+                child: Text(local.translate('cat_not_found')),
               )
             : ListView.separated(
               separatorBuilder: (ctx,index)=>SizedBox(height: 15,),
@@ -41,7 +44,7 @@ class HomeTab extends StatelessWidget {
                       name: snapSHot.data.docs[index].data()['name'],
                       imgPath:  
                           snapSHot.data.docs[index].data()['imgPath']);
-                  return CategoryItem( 
+                  return CategoryItem(  
                     categoryModel: model,
                     index: index,
                   );
